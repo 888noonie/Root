@@ -38,17 +38,20 @@ class Learning:
             if not isinstance(spec.get(field), str) or not spec[field].strip():
                 raise RootError(f"Learning request requires {field}")
         for field in ("max_requests", "max_download_bytes", "max_storage_bytes", "max_elapsed_seconds",
-                      "max_inference_tokens", "max_money_gbp"):
+                      "max_inference_tokens", "max_money_gbp", "max_concurrent_jobs"):
             if not isinstance(spec.get(field), int) or spec[field] < 0:
                 raise RootError(f"Learning request budget must be non-negative integer: {field}")
         if spec["max_money_gbp"] != 0:
             raise RootError("Learning requests support zero spending only")
+        if spec["max_concurrent_jobs"] != 1:
+            raise RootError("Learning requests support exactly one concurrent job")
         policy = self.store.portfolio()["policy"]
         for field, bound in (("max_requests", policy["max_requests"]),
                               ("max_download_bytes", policy["max_download_bytes"]),
                               ("max_storage_bytes", policy["max_storage_bytes"]),
                               ("max_elapsed_seconds", policy["max_elapsed_seconds"]),
                               ("max_inference_tokens", policy["max_inference_tokens"]),
+                              ("max_concurrent_jobs", policy["max_concurrent_jobs"]),
                               ):
             if spec[field] > bound:
                 raise RootError(f"Learning budget must fit portfolio: {field}")

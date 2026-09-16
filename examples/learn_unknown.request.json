@@ -1,0 +1,16 @@
+{
+  "id": "unsupported-adapter-demo",
+  "kind": "unsupported_adapter_research_v1",
+  "trigger": "unknown_adapter_demo",
+  "parent_objective": "Offline boundary demonstration",
+  "need": "Record that the requested adapter is unsupported without changing collection behaviour.",
+  "practice_fixture": "inline",
+  "acceptance": "Retain fixture provenance and an evidence-only practice receipt.",
+  "max_requests": 0,
+  "max_download_bytes": 0,
+  "max_storage_bytes": 65536,
+  "max_elapsed_seconds": 600,
+  "max_inference_tokens": 0,
+  "max_money_gbp": 0,
+  "max_concurrent_jobs": 1
+}

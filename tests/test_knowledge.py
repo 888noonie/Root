@@ -48,6 +48,23 @@ class KnowledgeContractTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_learn_show_cli_and_record(self):
+        from root_engine.knowledge import Learning
+        spec = {
+            "id": "show", "kind": "unsupported_adapter_research_v1", "trigger": "t",
+            "parent_objective": "po", "need": "n", "practice_fixture": "inline",
+            "acceptance": "a", "max_requests": 0, "max_download_bytes": 0,
+            "max_storage_bytes": 65536, "max_elapsed_seconds": 3600,
+            "max_inference_tokens": 0, "max_money_gbp": 0, "max_concurrent_jobs": 1,
+        }
+        Learning(self.store).create(spec)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.path), "learn-show", "--id", "show"],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["state"], "created")
+
     def test_learning_records_are_evidence_only_authority(self):
         from root_engine.knowledge import AUTHORITY_EVIDENCE_ONLY
 

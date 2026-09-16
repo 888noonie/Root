@@ -1,0 +1,5 @@
+{
+  "readme": "# Synthetic unsupported adapter\n\nThis fixture is offline-only evidence, not an upstream record.\n",
+  "license": "MIT\n",
+  "source": "class Retry:\n    def parse_retry_after(self, retry_after):\n        return 900\n"
+}

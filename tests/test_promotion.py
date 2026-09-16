@@ -194,6 +194,110 @@ class PromotionContractTests(unittest.TestCase):
             )
         self.assertEqual(measured["development"]["candidate_passes"], measured["development"]["total"])
 
+    def test_notify_fake_hermes_success(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        fake = Path(self.temp.name) / "fake-hermes"
+        fake.write_text('#!/bin/sh\necho \'{"success":true,"delivery_id":"test-1"}\'')
+        fake.chmod(0o755)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", str(fake)],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "sent")
+
+    def test_notify_missing_hermes_fails_cleanly(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", "/nonexistent/hermes"],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("executable regular file", result.stderr.lower())
+
+    def test_notify_hermes_nonzero_exit_still_pending(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        fake = Path(self.temp.name) / "fake-hermes"
+        fake.write_text('#!/bin/sh\nexit 1')
+        fake.chmod(0o755)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", str(fake)],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        from root_engine.promotion import show
+        after = Store(self.store.path, now=lambda: self.clock[0])
+        self.assertEqual(show(after, pid)["state"], "pending")
+        after.close()
+
+    def test_notify_malformed_json_is_uncertain_and_still_pending(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        fake = Path(self.temp.name) / "fake-hermes"
+        fake.write_text('#!/bin/sh\necho not-json')
+        fake.chmod(0o755)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", str(fake)],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("uncertain", result.stderr.lower())
+        after = Store(self.store.path, now=lambda: self.clock[0])
+        self.assertEqual(after.db.execute("SELECT state FROM promotions WHERE id=?", (pid,)).fetchone()[0], "pending")
+        event = json.loads(after.db.execute("SELECT payload FROM promotion_events WHERE promotion_id=? AND stage='notify_result' ORDER BY id DESC", (pid,)).fetchone()[0])
+        self.assertEqual(event["status"], "uncertain")
+        after.close()
+
+    def test_notify_explicit_relative_path_is_rejected(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", "./fake"],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("absolute path", result.stderr.lower())
+
+    def test_notify_negative_json_is_uncertain_and_still_pending(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        fake = Path(self.temp.name) / "fake-hermes"
+        fake.write_text('#!/bin/sh\necho \'{"success":false,"error":"refused"}\'')
+        fake.chmod(0o755)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", str(fake)],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("uncertain", result.stderr.lower())
+        after = Store(self.store.path, now=lambda: self.clock[0])
+        self.assertEqual(after.db.execute("SELECT state FROM promotions WHERE id=?", (pid,)).fetchone()[0], "pending")
+        after.close()
+
+    def test_notify_timeout(self):
+        pending = self._pending()
+        pid = pending["result"]["promotion_id"]
+        fake = Path(self.temp.name) / "fake-hermes-slow"
+        fake.write_text('#!/usr/bin/env python3\nimport time\ntime.sleep(30)\n')
+        fake.chmod(0o755)
+        result = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(self.store.path),
+             "promote-notify", "--id", pid, "--to", "telegram:test", "--hermes-bin", str(fake), "--timeout", "0.5"],
+            capture_output=True, text=True, cwd=PROJECT,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("timed out", result.stderr.lower())
+
     def test_cli_show_allow_deny_json_and_exits(self):
         db = Path(self.temp.name) / "cli.sqlite3"
         policy = self.store.portfolio()["policy"]

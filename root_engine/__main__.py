@@ -56,6 +56,8 @@ def main(argv=None):
     learn_mode = learn_run.add_mutually_exclusive_group(required=True)
     learn_mode.add_argument("--fixture")
     learn_mode.add_argument("--live", action="store_true")
+    learn_show = commands.add_parser("learn-show")
+    learn_show.add_argument("--id", required=True)
     promote_show = commands.add_parser("promote-show")
     promote_show.add_argument("--id", required=True)
     promote_allow = commands.add_parser("promote-allow")
@@ -65,6 +67,12 @@ def main(argv=None):
     promote_deny.add_argument("--id", required=True)
     promote_deny.add_argument("--actor", required=True)
     promote_deny.add_argument("--reason", required=True)
+    promote_notify = commands.add_parser("promote-notify")
+    promote_notify.add_argument("--id", required=True)
+    promote_notify.add_argument("--to", required=True)
+    promote_notify.add_argument("--actor", default="operator")
+    promote_notify.add_argument("--hermes-bin", required=True)
+    promote_notify.add_argument("--timeout", type=float, default=15.0)
     args = parser.parse_args(argv)
     store = None
     try:
@@ -81,6 +89,9 @@ def main(argv=None):
                 result = promote_show_fn(store, args.id)
             elif args.command == "promote-allow":
                 result = allow(store, args.id, args.actor)
+            elif args.command == "promote-notify":
+                from .notifier import send_hermes_notification
+                result = send_hermes_notification(store, args.id, args.to, actor=args.actor, hermes_bin=args.hermes_bin, timeout=args.timeout)
             else:
                 result = deny(store, args.id, args.actor, args.reason)
         elif args.command.startswith("goal-"):
@@ -110,6 +121,9 @@ def main(argv=None):
                 args.id,
                 fixture=read_json(args.fixture) if args.fixture else None,
             )
+        elif args.command == "learn-show":
+            from .knowledge import Learning
+            result = Learning(store).row(args.id)
         elif args.command == "opportunity-add":
             result = {"opportunity_id": store.put_opportunity(read_json(args.file))}
         elif args.command == "collect":

@@ -69,6 +69,10 @@ python3 -m root_engine --db .root/self-improve.sqlite3 promote-allow --id <PROMO
 
 `promote-allow` re-evaluates the exact stored artifact bytes, the pinned case manifests, provenance, licence, and trusted-code drift fingerprint before atomically switching the active component pointer. Fixture passes remain non-promotable and cannot be allowed. `promote-show` is read-only and JSON-safe. `promote-deny --id <PROMOTION_ID> --actor <label> --reason <text>` closes the request without activation. All three commands emit canonical JSON; a passing live evaluation alone never changes collector behavior.
 
+`promote-notify --id <PROMOTION_ID> --to <Hermes target> --hermes-bin /absolute/path/to/hermes` is an optional, explicit delivery attempt for an already-pending live promotion. It accepts no hard-coded recipient, invokes `hermes send --to TARGET --json MESSAGE` without a shell, uses a fixed timeout, records a bounded attempt/result event, and cannot allow, deny, or otherwise change promotion authority. A missing CLI, timeout, nonzero exit, negative/malformed receipt, or uncertain delivery leaves the row pending. The executable must be an absolute regular path; no PATH-selected executable is trusted.
+
+`learn-create --file REQUEST.json`, `learn-run --id REQUEST_ID --fixture FIXTURE.json`, and `learn-show --id REQUEST_ID` implement the one typed `unsupported_adapter_research_v1` lifecycle. The record has `authority="evidence_only"`: it cannot create a component, promotion, or collector behavior change. Live retrieval is intentionally refused for this first request kind; no network operation is implied by a learning request.
+
 Use `--fixture examples/github.synthetic.json` instead of `--live` for offline replay. It may pass behavioral evaluation but never creates a promotable artifact. An already-satisfied goal skips discovery and adoption. A stopped/interrupted goal does not silently restart or replenish allowances. A new goal requires a new explicit specification within the portfolio's remaining limits. `goal-run` exits 2 for a stopped goal and 1 for a failed evaluation.
 
 Goal request/body-byte/time/inference limits are independent of the portfolio limits. New specifications also declare zero spending, one concurrent job and a record-storage limit. Record storage counts UTF-8 payloads plus a conservative row overhead; the portfolio separately caps SQLite page allocation. New goals record hashes of development and holdout inputs at creation and refuse execution if they change. Earlier saved demonstration profiles retain their baseline case snapshots instead. Stop and audit records are preserved even after time runs out. `goal-rollback --id ...` remains available after deadlines expire and does not shorten any already-promised source cooldown.
@@ -138,7 +142,15 @@ labelled publisher flag, and the fields the notice does **not** publish.
 python3 -W error::ResourceWarning -m unittest discover -s tests -q
 ```
 
-Expected: `Ran 142 tests ... OK`, with no resource warnings. The suite is standard-library only.
+Expected: `Ran 150 tests ... OK`, with no resource warnings. The suite is standard-library only.
+
+## Offline authority-boundary walkthrough
+
+```sh
+scripts/offline_boundary_demo.sh
+```
+
+The script creates a fresh temporary database, runs the Retry-After fixture goal and an evidence-only fixture learning request, queries SQLite to assert zero components/promotions and one knowledge record, then proves a fixture leaves no promotion ID to allow (an attempted nonexistent ID is refused). It makes no network request, sends no Hermes message, and removes its temporary database on exit.
 
 ## Architecture
 
