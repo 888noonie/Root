@@ -1,0 +1,37 @@
+{
+  "id": "procurement-brief-provisional",
+  "beneficiary": "A small supplier in one as-yet-unselected service niche",
+  "problem": "Hypothesis: relevant public procurement notices are costly to qualify manually",
+  "deliverable": "A short source-linked brief explaining fit, deadlines, unknowns and exclusions for one supplier profile",
+  "alternative": "Saved Contracts Finder searches and manual review",
+  "advantage": "Hypothesis: reduce qualification time while retaining source attribution and useful rejection reasons",
+  "distribution": {
+    "channel": "A permissioned niche trade community — an actual reachable community has not been established",
+    "steps": ["Identify a relevant community", "Establish permission for a sample", "Present a source-linked sample and collect independent reactions"],
+    "autonomy": "hybrid", "within_policy": false,
+    "owner_steps": ["Establish trust and posting permission", "Decide whether to commit to further service"]
+  },
+  "costs": {
+    "setup_gbp": 0, "recurring_gbp": 0, "marginal_gbp": 0,
+    "owner_minutes_per_week": null, "owner_capacity_minutes_per_week": null,
+    "basis": "Cash caps are experiment targets; owner time has not been measured"
+  },
+  "support_obligations": "For a one-off sample, explain limitations and accept corrections; recurring delivery is not offered",
+  "stop_procedure": "Stop local generation at the end condition; record results without promising further delivery",
+  "evidence_refs": [],
+  "claims": [
+    {"text": "Suppliers would pay for qualification briefs", "status": "unknown"},
+    {"text": "A brief can save qualification time", "status": "hypothesis"}
+  ],
+  "experiment": {
+    "weakest_assumption": "An identifiable supplier considers the brief more useful than a saved search",
+    "hypothesis": "An independent relevant supplier can use a source-linked sample to qualify notices faster with no material missed requirements",
+    "metric": "Independent supplier reaction, qualification time and material errors compared with manual source review",
+    "pass_criterion": "At least one relevant independent supplier records a useful decision and lower qualification time with no material errors; this supports utility only",
+    "fail_criterion": "The independent reviewer finds material errors or no useful improvement",
+    "end_condition": "Stop after seven days or the resource cap; no outside reaction means uncertain",
+    "external_deliverable": "A real source-linked brief for an identifiable supplier profile",
+    "external_evidence_method": "Once a reachable permissioned channel is established, obtain an independent recipient's recorded reaction and comparison; this CLI does not contact anyone",
+    "max_money_gbp": 0, "max_requests": 1, "max_download_bytes": 1048576, "max_elapsed_seconds": 1800
+  }
+}

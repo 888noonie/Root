@@ -1,0 +1,8 @@
+[
+  {"id":"zero", "header":"0", "now":1704067200, "expected":300},
+  {"id":"whitespace", "header":" 1800 ", "now":1704067200, "expected":1800},
+  {"id":"negative", "header":"-10", "now":1704067200, "expected":300},
+  {"id":"fractional", "header":"1.5", "now":1704067200, "expected":300},
+  {"id":"longer-than-upstream-default-cap", "header":"25000", "now":1704067200, "expected":25000},
+  {"id":"obsolete-date-format", "header":"Monday, 01-Jan-24 00:30:00 GMT", "now":1704067200, "expected":1800}
+]

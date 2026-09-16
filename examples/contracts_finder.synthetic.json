@@ -1,0 +1,24 @@
+{
+  "uri": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search?fixture=synthetic",
+  "version": "1.1",
+  "publishedDate": "2026-09-14T12:00:00Z",
+  "publisher": {"name": "SYNTHETIC TEST DATA — not Cabinet Office publication"},
+  "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "releases": [
+    {
+      "ocid": "ocds-test-root-001", "id": "root-test-001-v1", "date": "2026-09-14T10:00:00Z",
+      "tag": ["tender"], "buyer": {"name": "Example council — fictional"},
+      "tender": {
+        "id": "test-001", "title": "Synthetic website accessibility assessment",
+        "description": "Fictional input for offline verification. No actual contract exists.",
+        "status": "active", "value": {"amount": 0, "currency": "GBP"},
+        "tenderPeriod": {"endDate": "2026-09-30T12:00:00Z"}
+      }
+    },
+    {
+      "ocid": "ocds-test-root-002", "id": "root-test-002-v1", "date": "2026-09-14T11:00:00Z",
+      "tag": ["tender"], "buyer": {"name": "Example institution — fictional"},
+      "tender": {"id": "test-002", "title": "Synthetic data conversion request", "status": "active"}
+    }
+  ]
+}

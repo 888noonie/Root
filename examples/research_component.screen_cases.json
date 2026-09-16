@@ -1,0 +1,21 @@
+{
+  "schema": "research_component_cases_v2",
+  "note": "Screen-verification case set: one unseen mismatch (sms-gateway) that must be stopped by the deterministic capability screen before any model inference. The standard development/holdout manifests (incl. wallpaper regression) stay untouched so the recorded 3/4 Gemma result is preserved.",
+  "cases": [
+    {
+      "id": "sms-gateway-mismatch",
+      "task": "ROOT's collector must respect HTTP Retry-After cooldowns from GitHub and Contracts Finder.",
+      "expectation": "refuse",
+      "split": "development",
+      "packet": {
+        "repository": "https://github.com/example/sms-gateway",
+        "revision": "0000000000000000000000000000000000000000",
+        "license_spdx": "MIT",
+        "license_excerpt": "Permission is hereby granted, free of charge...",
+        "readme_excerpt": "Sends and receives text messages; delivery notifications are handled by the carrier; billing per message.",
+        "source_excerpt": "def send_sms(number, text):\n    return True",
+        "test_source": null
+      }
+    }
+  ]
+}

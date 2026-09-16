@@ -1,0 +1,1477 @@
+{
+  "schema": "tender_evidence_projection_v2",
+  "generated": "2026-09-16T02:12Z",
+  "note": "Portable projection of 32 historical live observations. Retains notice identity, publisher organisation, deadline/status and classification for audit. Not complete releases; cannot reproduce requirement extraction. Full local SQLite and raw contact/free-text data are excluded.",
+  "count": 32,
+  "observations": [
+    {
+      "ocid": "ocds-b5fd17-41d735f9-e33e-4f20-9ead-1e527c7bea3a",
+      "release_id": "f569b14b-5078-47e9-bf61-8d49e457c0aa-913890",
+      "source_date": "2026-09-14T09:19:42+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-41d735f9-e33e-4f20-9ead-1e527c7bea3a",
+        "id": "f569b14b-5078-47e9-bf61-8d49e457c0aa-913890",
+        "date": "2026-09-14T09:19:42+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:14:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T09:19:42+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/f569b14b-5078-47e9-bf61-8d49e457c0aa"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-ef578710-0a53-4095-8743-cc3c4e957fff",
+      "release_id": "34e821b8-e9b6-4de1-90ce-0a3c94a7b294-913909",
+      "source_date": "2026-09-14T10:19:39+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-ef578710-0a53-4095-8743-cc3c4e957fff",
+        "id": "34e821b8-e9b6-4de1-90ce-0a3c94a7b294-913909",
+        "date": "2026-09-14T10:19:39+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:39+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/34e821b8-e9b6-4de1-90ce-0a3c94a7b294"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-3404f195-c45f-4e61-8798-415a043bbf72",
+      "release_id": "befd0c4f-d1d2-4d54-b26f-419b45d830c8-913910",
+      "source_date": "2026-09-14T10:19:41+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-3404f195-c45f-4e61-8798-415a043bbf72",
+        "id": "befd0c4f-d1d2-4d54-b26f-419b45d830c8-913910",
+        "date": "2026-09-14T10:19:41+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:41+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/befd0c4f-d1d2-4d54-b26f-419b45d830c8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-3aef7044-2ef7-4982-988a-cf56f937640b",
+      "release_id": "e78a23ab-8dde-4e33-8ba1-3ab77535d44a-913911",
+      "source_date": "2026-09-14T10:19:43+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-3aef7044-2ef7-4982-988a-cf56f937640b",
+        "id": "e78a23ab-8dde-4e33-8ba1-3ab77535d44a-913911",
+        "date": "2026-09-14T10:19:43+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:43+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/e78a23ab-8dde-4e33-8ba1-3ab77535d44a"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-126bb42d-2e5c-42e5-a116-4886ec0d7124",
+      "release_id": "c484f04c-b557-48c3-9d7e-c9b87f1541f1-913912",
+      "source_date": "2026-09-14T10:19:46+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-126bb42d-2e5c-42e5-a116-4886ec0d7124",
+        "id": "c484f04c-b557-48c3-9d7e-c9b87f1541f1-913912",
+        "date": "2026-09-14T10:19:46+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:46+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/c484f04c-b557-48c3-9d7e-c9b87f1541f1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-6a377aaf-fd63-4ba7-b707-450e2bf3f5e1",
+      "release_id": "0e251043-fde6-430e-9860-8ceae65459f9-913913",
+      "source_date": "2026-09-14T10:19:48+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-6a377aaf-fd63-4ba7-b707-450e2bf3f5e1",
+        "id": "0e251043-fde6-430e-9860-8ceae65459f9-913913",
+        "date": "2026-09-14T10:19:48+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-22T02:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:48+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/0e251043-fde6-430e-9860-8ceae65459f9"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-ed323b87-eebb-4ca5-be0b-873f6fe022b2",
+      "release_id": "d8dce101-537d-4995-bccb-c311835c5cfc-913914",
+      "source_date": "2026-09-14T10:19:50+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-ed323b87-eebb-4ca5-be0b-873f6fe022b2",
+        "id": "d8dce101-537d-4995-bccb-c311835c5cfc-913914",
+        "date": "2026-09-14T10:19:50+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree planting and post planting maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-18T03:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T10:19:50+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/d8dce101-537d-4995-bccb-c311835c5cfc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-bf50b2ae-52d4-4864-91cc-83855c2653cf",
+      "release_id": "116cde22-cae7-4fbe-8551-d129e46e38ec-913592",
+      "source_date": "2026-09-14T10:28:19+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-bf50b2ae-52d4-4864-91cc-83855c2653cf",
+        "id": "116cde22-cae7-4fbe-8551-d129e46e38ec-913592",
+        "date": "2026-09-14T10:28:19+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Lancing Parish Council"
+        },
+        "tender": {
+          "title": "Beach Green Kiosk Concession",
+          "status": "active",
+          "classification": {
+            "description": "Restaurant and food-serving services",
+            "id": "55300000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-23T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-14T10:28:19+01:00",
+          "value": {
+            "amount": 200000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/116cde22-cae7-4fbe-8551-d129e46e38ec"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-bf50b2ae-52d4-4864-91cc-83855c2653cf",
+      "release_id": "116cde22-cae7-4fbe-8551-d129e46e38ec-913925",
+      "source_date": "2026-09-14T10:51:43+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-bf50b2ae-52d4-4864-91cc-83855c2653cf",
+        "id": "116cde22-cae7-4fbe-8551-d129e46e38ec-913925",
+        "date": "2026-09-14T10:51:43+01:00",
+        "tag": [
+          "tenderAmendment"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Lancing Parish Council"
+        },
+        "tender": {
+          "title": "Beach Green Kiosk Concession",
+          "status": "active",
+          "classification": {
+            "description": "Restaurant and food-serving services",
+            "id": "55300000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-23T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-14T10:28:19+01:00",
+          "value": {
+            "amount": 200000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/116cde22-cae7-4fbe-8551-d129e46e38ec"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-a863d58d-c7a4-4ee3-aeac-ca785574b445",
+      "release_id": "e021a089-72e6-4dc1-916e-eb0d27beca6e-913949",
+      "source_date": "2026-09-14T11:30:15+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-a863d58d-c7a4-4ee3-aeac-ca785574b445",
+        "id": "e021a089-72e6-4dc1-916e-eb0d27beca6e-913949",
+        "date": "2026-09-14T11:30:15+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Epsom & St Helier University Hospitals NHS Trust"
+        },
+        "tender": {
+          "title": "CA18455 - R9309 Ferguson House Emergency Lighting",
+          "status": "active",
+          "classification": {
+            "description": "Electrical installation work",
+            "id": "45310000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-21T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T11:30:15+01:00",
+          "value": {
+            "amount": 160000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/e021a089-72e6-4dc1-916e-eb0d27beca6e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-e50f2eef-3f42-4fe0-a1ac-6fa18041adca",
+      "release_id": "ce859854-b3f6-4eb9-9a09-2041ed16aec4-913952",
+      "source_date": "2026-09-14T11:36:49+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-e50f2eef-3f42-4fe0-a1ac-6fa18041adca",
+        "id": "ce859854-b3f6-4eb9-9a09-2041ed16aec4-913952",
+        "date": "2026-09-14T11:36:49+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Lancing Parish Council"
+        },
+        "tender": {
+          "title": "Grass Cutting and Pitch Maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Grounds maintenance services",
+            "id": "77314000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-23T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-14T11:36:49+01:00",
+          "value": {
+            "amount": 30000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/ce859854-b3f6-4eb9-9a09-2041ed16aec4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-01f260ca-e73a-4ce3-bbaf-1667b775d81c",
+      "release_id": "f0db2f8b-49aa-40e5-810b-7b4c901f6308-913956",
+      "source_date": "2026-09-14T11:37:41+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-01f260ca-e73a-4ce3-bbaf-1667b775d81c",
+        "id": "f0db2f8b-49aa-40e5-810b-7b4c901f6308-913956",
+        "date": "2026-09-14T11:37:41+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-16T15:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T11:37:41+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/f0db2f8b-49aa-40e5-810b-7b4c901f6308"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-4d986b30-e4df-442f-9868-88bee05c4709",
+      "release_id": "88b67042-35a9-46db-b19e-ec745ac0affb-913959",
+      "source_date": "2026-09-14T11:43:33+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-4d986b30-e4df-442f-9868-88bee05c4709",
+        "id": "88b67042-35a9-46db-b19e-ec745ac0affb-913959",
+        "date": "2026-09-14T11:43:33+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-16T15:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T11:43:33+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/88b67042-35a9-46db-b19e-ec745ac0affb"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-2289b3cd-e165-4730-8743-be86ed5ec333",
+      "release_id": "70e6c116-5243-4fc4-83cb-7e1656d0172e-913964",
+      "source_date": "2026-09-14T12:11:21+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-2289b3cd-e165-4730-8743-be86ed5ec333",
+        "id": "70e6c116-5243-4fc4-83cb-7e1656d0172e-913964",
+        "date": "2026-09-14T12:11:21+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Ministry of Defence"
+        },
+        "tender": {
+          "title": "SUPPLY CHAIN NOTICE_WC1802680 & WC1582259 - (EP0035) Repair the flat roofs Waterproofing membranes at the north and south elevations & JRD Upgrades in line with the Defence Catering Strategy, Episkopi, Cyprus",
+          "status": "active",
+          "classification": {
+            "description": "Refurbishment work",
+            "id": "45453100",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-21T23:59:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T12:11:21+01:00",
+          "value": {
+            "amount": 580000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/70e6c116-5243-4fc4-83cb-7e1656d0172e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-e50f2eef-3f42-4fe0-a1ac-6fa18041adca",
+      "release_id": "ce859854-b3f6-4eb9-9a09-2041ed16aec4-913976",
+      "source_date": "2026-09-14T13:00:23+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-e50f2eef-3f42-4fe0-a1ac-6fa18041adca",
+        "id": "ce859854-b3f6-4eb9-9a09-2041ed16aec4-913976",
+        "date": "2026-09-14T13:00:23+01:00",
+        "tag": [
+          "tenderAmendment"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Lancing Parish Council"
+        },
+        "tender": {
+          "title": "Grass Cutting and Pitch Maintenance",
+          "status": "active",
+          "classification": {
+            "description": "Grounds maintenance services",
+            "id": "77314000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-23T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-14T11:36:49+01:00",
+          "value": {
+            "amount": 30000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/ce859854-b3f6-4eb9-9a09-2041ed16aec4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-08b48290-4ff0-4dac-89ac-8178aba5ef6a",
+      "release_id": "ef1460eb-4a68-4577-b16e-82e9ff99dd26-914008",
+      "source_date": "2026-09-14T14:26:08+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-08b48290-4ff0-4dac-89ac-8178aba5ef6a",
+        "id": "ef1460eb-4a68-4577-b16e-82e9ff99dd26-914008",
+        "date": "2026-09-14T14:26:08+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Nottinghamshire Police"
+        },
+        "tender": {
+          "title": "Uniform, Inventory and Asset Management Solution",
+          "status": "active",
+          "classification": {
+            "description": "Facilities management software package and software package suite",
+            "id": "48420000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-12T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T14:26:08+01:00",
+          "value": {
+            "amount": 180000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/ef1460eb-4a68-4577-b16e-82e9ff99dd26"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-27b23d99-adce-4780-ae26-31a8634ef4fb",
+      "release_id": "ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2-914050",
+      "source_date": "2026-09-14T16:23:32+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-27b23d99-adce-4780-ae26-31a8634ef4fb",
+        "id": "ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2-914050",
+        "date": "2026-09-14T16:23:32+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-16T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T16:23:32+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-f8d772f7-189b-40e3-a363-7fad1748a809",
+      "release_id": "35ebb56b-35e4-44d4-97ec-92c53253c052-914053",
+      "source_date": "2026-09-14T16:40:54+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-f8d772f7-189b-40e3-a363-7fad1748a809",
+        "id": "35ebb56b-35e4-44d4-97ec-92c53253c052-914053",
+        "date": "2026-09-14T16:40:54+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Oxford Health NHS Foundation Trust"
+        },
+        "tender": {
+          "title": "R/WP - 26/27 - Adult MH - Crisis Alternative (Safe Haven)  Oxfordshire",
+          "status": "active",
+          "classification": {
+            "description": "Community health services",
+            "id": "85323000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-19T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-14T16:40:53+01:00",
+          "value": {
+            "amount": 5600000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/35ebb56b-35e4-44d4-97ec-92c53253c052"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-ba5f0326-91a7-4675-ab9c-b1c3f44b4ef4",
+      "release_id": "d27cadf0-d018-44ed-aaa7-0ac5402d46b4-914055",
+      "source_date": "2026-09-14T16:51:12+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-ba5f0326-91a7-4675-ab9c-b1c3f44b4ef4",
+        "id": "d27cadf0-d018-44ed-aaa7-0ac5402d46b4-914055",
+        "date": "2026-09-14T16:51:12+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Suffolk and North Essex NHS FT"
+        },
+        "tender": {
+          "title": "CA18456 - ESNEFT 3197 Charitable Funds Investment",
+          "status": "active",
+          "classification": {
+            "description": "Portfolio management services",
+            "id": "66140000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-10T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T16:51:11+01:00",
+          "value": {
+            "amount": 277500,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/d27cadf0-d018-44ed-aaa7-0ac5402d46b4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-3cba68f1-7d49-4d80-9cc9-815a406f6346",
+      "release_id": "392859ec-e188-4629-9a79-5e045efdf9bd-914058",
+      "source_date": "2026-09-14T19:03:37+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-3cba68f1-7d49-4d80-9cc9-815a406f6346",
+        "id": "392859ec-e188-4629-9a79-5e045efdf9bd-914058",
+        "date": "2026-09-14T19:03:37+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-17T10:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T19:03:37+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/392859ec-e188-4629-9a79-5e045efdf9bd"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-2289b3cd-e165-4730-8743-be86ed5ec333",
+      "release_id": "70e6c116-5243-4fc4-83cb-7e1656d0172e-914060",
+      "source_date": "2026-09-15T08:04:51+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-2289b3cd-e165-4730-8743-be86ed5ec333",
+        "id": "70e6c116-5243-4fc4-83cb-7e1656d0172e-914060",
+        "date": "2026-09-15T08:04:51+01:00",
+        "tag": [
+          "tenderAmendment"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Ministry of Defence"
+        },
+        "tender": {
+          "title": "SUPPLY CHAIN NOTICE_WC1802680 & WC1582259 - (EP0035) Repair the flat roofs Waterproofing membranes at the north and south elevations & JRD Upgrades in line with the Defence Catering Strategy, Episkopi, Cyprus",
+          "status": "active",
+          "classification": {
+            "description": "Refurbishment work",
+            "id": "45453100",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-21T23:59:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-14T12:11:21+01:00",
+          "value": {
+            "amount": 580000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/70e6c116-5243-4fc4-83cb-7e1656d0172e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-1f2e98dd-25fb-461c-9f23-cfc30c5953bf",
+      "release_id": "a53154bb-7b37-4374-82ea-6425a408b893-914110",
+      "source_date": "2026-09-15T10:09:40+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-1f2e98dd-25fb-461c-9f23-cfc30c5953bf",
+        "id": "a53154bb-7b37-4374-82ea-6425a408b893-914110",
+        "date": "2026-09-15T10:09:40+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Leicestershire County Council"
+        },
+        "tender": {
+          "title": "Bespoke Bus Shelter- Melton Mowbray",
+          "status": "active",
+          "classification": {
+            "description": "Construction structures and materials; auxiliary products to construction (except electric apparatus)",
+            "id": "44000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-16T23:59:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": true
+          },
+          "datePublished": "2026-09-15T10:09:40+01:00",
+          "value": {
+            "amount": 25000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/a53154bb-7b37-4374-82ea-6425a408b893"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-34250793-aed0-4e51-b3e0-2a33b2eb9707",
+      "release_id": "719ff6de-5e52-42c0-962f-0d8fc2709bde-914132",
+      "source_date": "2026-09-15T11:18:44+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-34250793-aed0-4e51-b3e0-2a33b2eb9707",
+        "id": "719ff6de-5e52-42c0-962f-0d8fc2709bde-914132",
+        "date": "2026-09-15T11:18:44+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "KIER TRANSPORTATION LIMITED"
+        },
+        "tender": {
+          "title": "A66  Northern Trans-Pennine Project (NTP) - Scheme 1 & 2 Pavement Construction",
+          "status": "active",
+          "classification": {
+            "description": "Construction, foundation and surface works for highways, roads",
+            "id": "45233000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-23T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T11:18:44+01:00",
+          "value": {
+            "amount": 6500000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/719ff6de-5e52-42c0-962f-0d8fc2709bde"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-01fb41cd-be9e-40e8-acc8-aa23d0d78676",
+      "release_id": "598524db-f6a5-4ec1-841c-15a5ae5964f6-914131",
+      "source_date": "2026-09-15T11:24:18+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-01fb41cd-be9e-40e8-acc8-aa23d0d78676",
+        "id": "598524db-f6a5-4ec1-841c-15a5ae5964f6-914131",
+        "date": "2026-09-15T11:24:18+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Surlingham Parish Council"
+        },
+        "tender": {
+          "title": "Surlingham Play Area",
+          "status": "active",
+          "classification": {
+            "description": "Swings",
+            "id": "37535100",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-12T17:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T11:24:18+01:00",
+          "value": {
+            "amount": 40000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/598524db-f6a5-4ec1-841c-15a5ae5964f6"
+            },
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/b6ad0f64-ab0b-4658-9574-1de8051f18cb"
+            },
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/d6be15f1-b967-4a1e-8a9e-3f58150a75e7"
+            },
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/b8b4f904-6809-41b6-b543-76cb6ef1655d"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-20c17fb2-e1f5-4aeb-ab36-331b97dc9fff",
+      "release_id": "d9e00303-2bda-40ac-b06a-ed0f2180ae02-914145",
+      "source_date": "2026-09-15T12:03:27+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-20c17fb2-e1f5-4aeb-ab36-331b97dc9fff",
+        "id": "d9e00303-2bda-40ac-b06a-ed0f2180ae02-914145",
+        "date": "2026-09-15T12:03:27+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "DN Colleges Group"
+        },
+        "tender": {
+          "title": "CA18460 - DN Colleges Group - ITT for the Provision of Brand Strategy and Rebranding Services",
+          "status": "active",
+          "classification": {
+            "description": "Design consultancy services",
+            "id": "79415200",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-29T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T12:03:27+01:00",
+          "value": {
+            "amount": 60000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/d9e00303-2bda-40ac-b06a-ed0f2180ae02"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-8d2a137a-83e3-4ae7-92e7-c7f91dd2461e",
+      "release_id": "467796bd-1e9f-49f6-8c0c-9a25ef9dc344-914146",
+      "source_date": "2026-09-15T12:06:18+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-8d2a137a-83e3-4ae7-92e7-c7f91dd2461e",
+        "id": "467796bd-1e9f-49f6-8c0c-9a25ef9dc344-914146",
+        "date": "2026-09-15T12:06:18+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "DN Colleges Group"
+        },
+        "tender": {
+          "title": "CA18461 - DN Colleges Group - ITT for the Provision of Website Development Services",
+          "status": "active",
+          "classification": {
+            "description": "World wide web (www) site design services",
+            "id": "72413000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-29T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T12:06:18+01:00",
+          "value": {
+            "amount": 25000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/467796bd-1e9f-49f6-8c0c-9a25ef9dc344"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-1f55720b-b353-4d7f-8815-27bcb5c5f5ee",
+      "release_id": "5bfe505f-4c0b-4f75-83c7-4840897977ca-914168",
+      "source_date": "2026-09-15T13:11:34+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-1f55720b-b353-4d7f-8815-27bcb5c5f5ee",
+        "id": "5bfe505f-4c0b-4f75-83c7-4840897977ca-914168",
+        "date": "2026-09-15T13:11:34+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-17T14:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T13:11:33+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/5bfe505f-4c0b-4f75-83c7-4840897977ca"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-79cb4823-6336-44f6-a029-f36978435237",
+      "release_id": "58dff868-cc11-4bfe-acb5-9568c698089d-914177",
+      "source_date": "2026-09-15T13:36:32+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-79cb4823-6336-44f6-a029-f36978435237",
+        "id": "58dff868-cc11-4bfe-acb5-9568c698089d-914177",
+        "date": "2026-09-15T13:36:32+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "HARTFORD PARISH COUNCIL"
+        },
+        "tender": {
+          "title": "Allotment Fencing",
+          "status": "active",
+          "classification": {
+            "description": "Erection of fencing",
+            "id": "45342000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-23T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T13:36:32+01:00",
+          "value": {
+            "amount": 20000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/58dff868-cc11-4bfe-acb5-9568c698089d"
+            },
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/3f146008-19aa-411a-98dc-7383841e62b6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-6b5e3556-15fd-4d12-9ba3-137ef728b610",
+      "release_id": "3816af0b-ea91-41db-b3b3-b859b0e52734-914212",
+      "source_date": "2026-09-15T15:19:37+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-6b5e3556-15fd-4d12-9ba3-137ef728b610",
+        "id": "3816af0b-ea91-41db-b3b3-b859b0e52734-914212",
+        "date": "2026-09-15T15:19:37+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough Of Islington"
+        },
+        "tender": {
+          "title": "Arboricultural services - Tree works operations",
+          "status": "active",
+          "classification": {
+            "description": "Repair and maintenance services",
+            "id": "50000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-24T14:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T15:19:37+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/3816af0b-ea91-41db-b3b3-b859b0e52734"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-170e1900-cd9a-4360-8d11-81a5945a8112",
+      "release_id": "c9eb0b84-c33c-49d8-9e31-83fa1b017ee2-914225",
+      "source_date": "2026-09-15T16:00:09+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-170e1900-cd9a-4360-8d11-81a5945a8112",
+        "id": "c9eb0b84-c33c-49d8-9e31-83fa1b017ee2-914225",
+        "date": "2026-09-15T16:00:09+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "Eiffage Kier JV HS2 Main Civils Works, Lots C2 & C3"
+        },
+        "tender": {
+          "title": "EKFB JV - G2S - Central - Stair & Hard Landscaping Trial / Works",
+          "status": "active",
+          "classification": {
+            "description": "Staircases",
+            "id": "44233000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-25T16:00:00+01:00"
+          },
+          "suitability": {
+            "sme": false,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T16:00:09+01:00",
+          "value": {
+            "amount": 1000000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/c9eb0b84-c33c-49d8-9e31-83fa1b017ee2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-38a02a97-28b2-4429-bd23-ec7c23f36934",
+      "release_id": "803f7cb8-f5b7-49df-8658-6b3d34575721-914234",
+      "source_date": "2026-09-15T16:30:02+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-38a02a97-28b2-4429-bd23-ec7c23f36934",
+        "id": "803f7cb8-f5b7-49df-8658-6b3d34575721-914234",
+        "date": "2026-09-15T16:30:02+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "London Borough of Merton"
+        },
+        "tender": {
+          "title": "Individual Placement Scheme (IPS)",
+          "status": "active",
+          "classification": {
+            "description": "Rehabilitation services",
+            "id": "85312500",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-10-14T12:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T16:30:02+01:00",
+          "value": {
+            "amount": 2306000,
+            "currency": "GBP"
+          },
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/803f7cb8-f5b7-49df-8658-6b3d34575721"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-f4c69224-f774-4247-8303-6785cac40e8a",
+      "release_id": "604ad569-e560-480f-88a0-3f534f3c2548-914237",
+      "source_date": "2026-09-15T16:33:38+01:00",
+      "source_endpoint": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search",
+      "license": "OGL v3.0 (publisher: Contracts Finder, UK)",
+      "redactions": "Publication projection: parties, contact points, descriptions and other free text omitted. Not a complete release.",
+      "release": {
+        "ocid": "ocds-b5fd17-f4c69224-f774-4247-8303-6785cac40e8a",
+        "id": "604ad569-e560-480f-88a0-3f534f3c2548-914237",
+        "date": "2026-09-15T16:33:38+01:00",
+        "tag": [
+          "tender"
+        ],
+        "initiationType": "tender",
+        "buyer": {
+          "name": "East Sussex County Council"
+        },
+        "tender": {
+          "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+          "status": "active",
+          "classification": {
+            "description": "Transport services (excl. Waste transport)",
+            "id": "60000000",
+            "scheme": "CPV"
+          },
+          "tenderPeriod": {
+            "endDate": "2026-09-18T10:00:00+01:00"
+          },
+          "suitability": {
+            "sme": true,
+            "vcse": false
+          },
+          "datePublished": "2026-09-15T16:33:38+01:00",
+          "documents": [
+            {
+              "documentType": "tenderNotice",
+              "url": "https://www.contractsfinder.service.gov.uk/Notice/604ad569-e560-480f-88a0-3f534f3c2548"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "redactions": "Allowlisted fields only; contacts, parties and free-text descriptions omitted.",
+  "attribution": {
+    "source": "Contracts Finder, UK Government",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  }
+}

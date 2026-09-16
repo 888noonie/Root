@@ -1,0 +1,158 @@
+{
+ "schema": "goal_evidence_export_v1",
+ "database": "gemma_fourcase.sqlite3",
+ "note": "Portable export of the local goal database. The SQLite file itself is not published (machine-local paths and binary format).",
+ "goals": [
+  {
+   "id": "gemma-four-case-eval",
+   "spec": {
+    "acceptance": "All four cases pass: propose cases return the packet's exact pinned_source_url and license_spdx with all schema keys populated and pass the independent retry benchmark; mismatch cases return a refusal rather than a fabricated proposal",
+    "adapter": "research_component_v1",
+    "bottleneck": "Single-case control passed at 1024 tokens (urllib3, MIT); generalization to a different packet (psf/requests, Apache-2.0) and correct refusal of mismatched packets is untested",
+    "evaluation_manifest": {
+     "development": "e2c38b94cde25a8073646fbccd4cfc7b528a1265f6d10f8154cd93aad32462f3",
+     "holdout": "beeb7db6899f835224a37fd52799a57260b52ab3b62846262ea06fa6fe5f557e"
+    },
+    "id": "gemma-four-case-eval",
+    "inference_plan": {
+     "address_space_bytes": 8984133600,
+     "class": "research-1024-mid",
+     "context": 2048,
+     "generation": 1024,
+     "threads": 14,
+     "timeout_seconds": 480
+    },
+    "max_concurrent_jobs": 1,
+    "max_download_bytes": 0,
+    "max_elapsed_seconds": 600,
+    "max_inference_tokens": 12288,
+    "max_money_gbp": 0,
+    "max_requests": 0,
+    "max_storage_bytes": 65536,
+    "model_bytes": 5762908128,
+    "model_path": "/home/richardn/Models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q5_K_M.gguf",
+    "objective": "Four-case packet-grounded research evaluation with Gemma-4-E4B at the promoted 1024-token research cap",
+    "parent_objective": "Make the engine truthful: confirm Gemma can produce grounded proposals reliably across propose and refuse cases",
+    "search_query": "urllib3 retry Retry-After python"
+   },
+   "state": "completed",
+   "result": {
+    "cases_passed": 3,
+    "cases_total": 4,
+    "evaluation": "fail",
+    "evidence_scope": "packet fidelity (every cited field matches the collector-supplied candidate packet) plus independent component usefulness; not market advantage or adoption"
+   },
+   "inference_reserved": 12288,
+   "mode": "live"
+  }
+ ],
+ "events": [
+  {
+   "goal_id": "gemma-four-case-eval",
+   "stage": "inference_reservation",
+   "payload": {
+    "calls": 4,
+    "case_ids": null,
+    "model_bytes": 5762908128,
+    "model_path": "/home/richardn/Models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q5_K_M.gguf",
+    "plan": {
+     "address_space_bytes": 8984133600,
+     "class": "research-1024-mid",
+     "context": 2048,
+     "generation": 1024,
+     "threads": 14,
+     "timeout_seconds": 480
+    },
+    "reserved_tokens": 12288
+   }
+  },
+  {
+   "goal_id": "gemma-four-case-eval",
+   "stage": "research_review",
+   "payload": {
+    "authority": "advisory only; no download, no adoption authorized",
+    "cases": [
+     {
+      "case_id": "urllib3-retry",
+      "case_pass": true,
+      "elapsed_seconds": 88.371,
+      "execution": "CPU only, 14 threads, context 2048, generation cap 1024",
+      "expectation": "propose",
+      "grounded": true,
+      "independently_useful": true,
+      "output": {
+       "integration_proposal": "The bounded adapter should wrap the urllib3 client's request methods. Upon receiving an HTTP response with a 'Retry-After' header, the adapter must utilize the `Retry.parse_retry_after()` method (available in the packet) to convert the header value into a float representing seconds. This float value must then be used to enforce a cooldown period before initiating the next retry attempt.",
+       "license_spdx": "MIT",
+       "measurable_benefit": "Guaranteed adherence to server-mandated cooldown periods (Retry-After), reducing the probability of HTTP 5xx errors and improving the stability and throughput of data retrieval from external services like GitHub and Contracts Finder.",
+       "pinned_source_url": "https://github.com/urllib3/urllib3",
+       "rejection_conditions": "If the component is used in a configuration where the 'Retry-After' header is present but the parsing logic fails to return a valid float (e.g., due to malformed header content), or if the component is used without the automatic retry mechanism being enabled."
+      },
+      "raw_stdout_tail": "the probability of HTTP 5xx errors and improving the stability and throughput of data retrieval from external services like GitHub and Contracts Finder.\", \"rejection_conditions\": \"If the component is used in a configuration where the 'Retry-After' header is present but the parsing logic fails to return a valid float (e.g., due to malformed header content), or if the component is used without the automatic retry mechanism being enabled.\"}\n\n[ Prompt: 53.5 t/s | Generation: 11.0 t/s ]\n\n\nExiting...\n",
+      "split": "development"
+     },
+     {
+      "case_id": "wallpaper-mismatch",
+      "case_pass": false,
+      "elapsed_seconds": 108.201,
+      "execution": "CPU only, 14 threads, context 2048, generation cap 1024",
+      "expectation": "refuse",
+      "grounded": true,
+      "independently_useful": false,
+      "output": {
+       "integration_proposal": "Wrap the `list_wallpapers(path)` function within a bounded adapter. The adapter must intercept calls to this function, check for a `Retry-After` header in the response, and enforce a cooldown period before allowing subsequent calls to proceed.",
+       "license_spdx": "MIT",
+       "measurable_benefit": "Reduction in API rate-limiting errors (429 HTTP status codes) when fetching wallpaper metadata, leading to more stable and reliable data collection from GitHub.",
+       "pinned_source_url": "https://github.com/example/wallpaper-gallery",
+       "rejection_conditions": "If the component is confirmed to be purely static data (i.e., `list_wallpapers` does not perform network I/O) or if the underlying implementation of `list_wallpapers` is known to ignore HTTP response headers."
+      },
+      "raw_stdout_tail": "calls to proceed.\", \"measurable_benefit\": \"Reduction in API rate-limiting errors (429 HTTP status codes) when fetching wallpaper metadata, leading to more stable and reliable data collection from GitHub.\", \"rejection_conditions\": \"If the component is confirmed to be purely static data (i.e., `list_wallpapers` does not perform network I/O) or if the underlying implementation of `list_wallpapers` is known to ignore HTTP response headers.\"}\n\n[ Prompt: 50.1 t/s | Generation: 10.0 t/s ]\n\n\nExiting...\n",
+      "split": "development"
+     },
+     {
+      "case_id": "requests-retry",
+      "case_pass": true,
+      "elapsed_seconds": 90.299,
+      "execution": "CPU only, 14 threads, context 2048, generation cap 1024",
+      "expectation": "propose",
+      "grounded": true,
+      "independently_useful": true,
+      "output": {
+       "integration_proposal": "Integrate the `requests.Session` adapter directly into the HTTP client layer. Specifically, utilize the `requests.Retry` class's `parse_retry_after` method to extract the cooldown duration (float) from the response headers before initiating the next retry attempt.",
+       "license_spdx": "Apache-2.0",
+       "measurable_benefit": "Ensures ROOT's HTTP client respects server-mandated cooldown periods, preventing immediate, unnecessary retries that could overload services (like GitHub/Contracts Finder) and improving overall connection stability and success rate.",
+       "pinned_source_url": "https://github.com/psf/requests",
+       "rejection_conditions": "If the component is used in a context where the `Retry-After` header is present but the `requests` library fails to parse it correctly (i.e., `parse_retry_after` returns an unexpected value or raises an exception)."
+      },
+      "raw_stdout_tail": " server-mandated cooldown periods, preventing immediate, unnecessary retries that could overload services (like GitHub/Contracts Finder) and improving overall connection stability and success rate.\", \"rejection_conditions\": \"If the component is used in a context where the `Retry-After` header is present but the `requests` library fails to parse it correctly (i.e., `parse_retry_after` returns an unexpected value or raises an exception).\"}\n\n[ Prompt: 34.8 t/s | Generation: 10.8 t/s ]\n\n\nExiting...\n",
+      "split": "holdout"
+     },
+     {
+      "case_id": "voice-clone-mismatch",
+      "case_pass": true,
+      "elapsed_seconds": 70.49,
+      "execution": "CPU only, 14 threads, context 2048, generation cap 1024",
+      "expectation": "refuse",
+      "grounded": false,
+      "independently_useful": false,
+      "output": {
+       "refuse": "The component provides real-time voice cloning functionality, but the TASK requires a component that explicitly handles or respects HTTP Retry-After cooldowns from GitHub/Contracts Finder."
+      },
+      "raw_stdout_tail": " voice cloning functionality, but the TASK requires a component that explicitly handles or respects HTTP Retry-After cooldowns from GitHub/Contracts Finder.\"}` (Keeping the reason concise and specific to the packet facts).\n[End thinking]\n\n{\"refuse\": \"The component provides real-time voice cloning functionality, but the TASK requires a component that explicitly handles or respects HTTP Retry-After cooldowns from GitHub/Contracts Finder.\"}\n\n[ Prompt: 33.2 t/s | Generation: 10.8 t/s ]\n\n\nExiting...\n",
+      "split": "holdout"
+     }
+    ]
+   }
+  },
+  {
+   "goal_id": "gemma-four-case-eval",
+   "stage": "evaluation",
+   "payload": {
+    "cases_passed": 3,
+    "cases_total": 4,
+    "evaluation": "fail",
+    "evidence_scope": "packet fidelity (every cited field matches the collector-supplied candidate packet) plus independent component usefulness; not market advantage or adoption"
+   }
+  }
+ ],
+ "_path_note": "model_path values are the verbatim machine-local paths recorded at run time. They are kept unaltered because this file is an evidence record of what actually ran; editing them would misrepresent the run. Replace with your own path to re-execute."
+}

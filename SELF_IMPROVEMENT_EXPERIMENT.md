@@ -1,0 +1,26 @@
+<!-- NOTE: the test counts in this file are HISTORICAL, recorded when this document was written. The current suite count is in README.md / METRICS.md. -->
+# First demonstration: ROOT improves a bounded capability
+
+Authorized scope: the user's instruction to make GitHub component discovery for objective-specific self-improvement the first demonstration. This supersedes using the provisional procurement business as the first demonstration. The business objective and its external-market-evidence requirements remain unchanged.
+
+Build started: 2026-09-15 23:05 UTC (2026-09-16 in Europe/London). Stop at 2026-09-16 00:05 UTC: 60 minutes elapsed, including stalls. Budget: £0, no large downloads or new model weights; at most 1 MiB of GitHub metadata/documentation/component response bodies per live goal; at most 12 network attempts per live goal, including failed attempts; at most two explicitly budgeted live goal executions if sandbox connectivity requires a new run. No silent budget reset or unbounded retry. Local runtime setup may reuse the existing 380 MiB Qwen GGUF, with at most 512 MiB new model-cache data. At most two short CPU inference trials, each capped at 128 generated tokens and 90 seconds. No public deployments, outreach or perpetual services.
+
+Concrete gap: the collector hard-codes 300 seconds for 429/403 and ignores a longer Retry-After instruction. Demonstrate the baseline failure on saved HTTP-header cases, search GitHub for relevant Python HTTP components, retain commit/source/license evidence, isolate and evaluate a small compatible component, then enable it only if predeclared development and holdout criteria pass. Adoption may be rejected.
+
+The adapter's scope is narrow: Retry-After parsing and persistent cooldown selection. It cannot rewrite objectives, resource caps or evaluation criteria. ROOT first supports a curated adapter with independently enforced code restrictions; this is not unrestricted recursive code modification. A fixture-only run may evaluate behavior but cannot claim a new live repository discovery.
+
+Local models assist bounded classification/review, subject to an actual runtime check. A file's size or marketing name does not demonstrate reasoning quality. The first engine goal must run even if local inference is unavailable; its deterministic evaluator retains the decision.
+
+Acceptance: durable goal specification and events; external GitHub search/provenance where connectivity permits; independent goal and portfolio limits; exact pinned revision and retained license; baseline/candidate results on predeclared cases; no automatic adoption of failed/fixture-only candidates; collector uses the adopted adapter; rollback restores previous behavior; rerunning a completed goal causes no repeated effects; local model inventory and CPU trial results recorded.
+
+Setup stall: the offline profile's two model reservations were consumed by `failed to get a free port` before weights loaded or inference began. No trial throughput or capability can be inferred from this. A separately budgeted live profile, already allowed above, will exercise network discovery and the two CPU trials outside the socket sandbox. Original reservations are retained and not refunded. No inference service is left running intentionally.
+
+First live goal: completed its predeclared baseline, then stopped after one real GitHub search (55 bytes) returned zero candidates. The primary query required too many description terms. Its failure record and budget remain in `.root/self-improve-live.sqlite3`. The second already-budgeted live execution adds an explicit fallback search in its immutable goal specification. ROOT may broaden the query once within the same resource limits; it may not extend the budget or select an unsupported integration recipe.
+
+Outcome: the second live goal passed its independent evaluator and enabled the restricted upstream parser. Seven requests, 96,676 bytes, pinned MIT upstream revision `b1d30ab61fe0db8f11092805e8c5ac43e091064a`; correctness improved from 7/12 to 12/12 cases. Saved-goal replay had no repeated effects. An isolated-copy rollback restored the baseline while retaining the original adoption. 42 automated checks pass. Full results and limitations: SELF_IMPROVEMENT_RESULT.md.
+
+CPU result: two processes completed outside the socket sandbox, but both advisory outputs failed structured validation; 2,304 reserved tokens retained in the live profile. Earlier offline startup failures retained their separate 2,304-token reservation. No more live trials were run. Qwen review remains unvalidated; no Gemma weights were loaded. No model cache was created or model weights downloaded. The prototype now retains future failure diagnostics and strips terminal color codes; this adjustment was not live retrialed within the two-trial cap.
+
+Later verification added explicit record-storage caps and case-manifest digests for new goals, with tests; the historical live profile retains its original portfolio storage cap and baseline snapshots. This was not a retrospective alteration of its goal specification or measurement criteria.
+
+Build stop: scoped capability demonstration delivered within the 60-minute window. No business experiment, research-model team, heartbeat or public deployment was added.

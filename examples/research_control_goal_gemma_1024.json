@@ -1,0 +1,20 @@
+{
+ "id": "gemma-schema-emission-control",
+ "objective": "One packet-grounded proposal from Gemma-4-E4B with a 1024-token generation cap",
+ "parent_objective": "Make the engine truthful: establish whether Gemma can emit grounded proposals under the bounded adapter",
+ "bottleneck": "Gemma's 512-token research cap truncates its five-field proposal after a verbose preamble; the control tests the 1024-token cap on one case",
+ "search_query": "urllib3 retry Retry-After python",
+ "acceptance": "The single urllib3-retry case passes: one packet-grounded proposal parses, matches the packet exactly, and passes the independent retry benchmark. If it truncates again, Gemma is unsuitable for this role under our bounded adapter.",
+ "adapter": "research_component_v1",
+ "model_path": "/absolute/path/to/your/model.gguf",
+ "research_generation_cap": 1024,
+ "research_case_ids": [
+  "urllib3-retry"
+ ],
+ "max_requests": 0,
+ "max_download_bytes": 0,
+ "max_elapsed_seconds": 180,
+ "max_inference_tokens": 3072,
+ "max_storage_bytes": 65536,
+ "_model_path_note": "model_path is a machine-local absolute path; replace with your own GGUF. This evidence fixture is retained to document the exact run configuration."
+}

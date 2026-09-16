@@ -1,0 +1,8 @@
+[
+  {"id":"missing", "header":null, "now":1704067200, "expected":300},
+  {"id":"short", "header":"60", "now":1704067200, "expected":300},
+  {"id":"long", "header":"900", "now":1704067200, "expected":900},
+  {"id":"date", "header":"Mon, 01 Jan 2024 00:20:00 GMT", "now":1704067200, "expected":1200},
+  {"id":"invalid", "header":"nonsense", "now":1704067200, "expected":300},
+  {"id":"past", "header":"Sun, 31 Dec 2023 23:00:00 GMT", "now":1704067200, "expected":300}
+]

@@ -1,0 +1,34 @@
+{
+ "schema": "research_component_cases_v2",
+ "note": "Packet-grounded research-role evaluation. The proposing model sees only the task and the packet fields marked in the prompt; every cited field must match the packet, or the model must refuse. test_source is used only by the independent component test and is never shown to the model.",
+ "cases": [
+  {
+   "id": "urllib3-retry",
+   "task": "ROOT's collector must respect HTTP Retry-After cooldowns from GitHub and Contracts Finder.",
+   "expectation": "propose",
+   "packet": {
+    "repository": "https://github.com/urllib3/urllib3",
+    "revision": "0000000000000000000000000000000000000000",
+    "license_spdx": "MIT",
+    "license_excerpt": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software... THE SOFTWARE IS PROVIDED 'AS IS'.",
+    "readme_excerpt": "urllib3 is a user-friendly HTTP client for Python, providing Retry-After parsing and automatic retries.",
+    "source_excerpt": "class Retry:\n    def parse_retry_after(self, retry_after: str) -> float:\n        if re.match(r'^\\s*[0-9]+\\s*$', retry_after):\n            seconds = int(retry_after)\n        else: ...",
+    "test_source": "# Synthetic parser fixture, not upstream source.\nclass Retry:\n    def parse_retry_after(self, retry_after: str) -> float:\n        if re.match(r'^\\s*[0-9]+\\s*$', retry_after):\n            seconds = int(retry_after)\n        else:\n            retry_date_tuple = email.utils.parsedate_tz(retry_after)\n            if retry_date_tuple is None:\n                raise InvalidHeader('Invalid Retry-After header')\n            retry_date = email.utils.mktime_tz(retry_date_tuple)\n            seconds = retry_date - time.time()\n        seconds = max(seconds, 0)\n        if seconds > self.retry_after_max:\n            seconds = self.retry_after_max\n        return seconds\n"
+   }
+  },
+  {
+   "id": "wallpaper-mismatch",
+   "task": "ROOT's collector must respect HTTP Retry-After cooldowns from GitHub and Contracts Finder.",
+   "expectation": "refuse",
+   "packet": {
+    "repository": "https://github.com/example/wallpaper-gallery",
+    "revision": "0000000000000000000000000000000000000000",
+    "license_spdx": "MIT",
+    "license_excerpt": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software... THE SOFTWARE IS PROVIDED 'AS IS'.",
+    "readme_excerpt": "A collection of desktop wallpaper images and visual themes.",
+    "source_excerpt": "def list_wallpapers(path): ...",
+    "test_source": null
+   }
+  }
+ ]
+}

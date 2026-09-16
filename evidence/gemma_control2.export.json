@@ -1,0 +1,113 @@
+{
+ "schema": "goal_evidence_export_v1",
+ "database": "gemma_control2.sqlite3",
+ "note": "Portable export of the local goal database. The SQLite file itself is not published (machine-local paths and binary format).",
+ "goals": [
+  {
+   "id": "gemma-schema-emission-control",
+   "spec": {
+    "acceptance": "The single urllib3-retry case passes: one packet-grounded proposal parses, matches the packet exactly, and passes the independent retry benchmark. If it truncates again, Gemma is unsuitable for this role under our bounded adapter.",
+    "adapter": "research_component_v1",
+    "bottleneck": "Gemma's 512-token research cap truncates its five-field proposal after a verbose preamble; the control tests the 1024-token cap on one case",
+    "evaluation_manifest": {
+     "development": "e2c38b94cde25a8073646fbccd4cfc7b528a1265f6d10f8154cd93aad32462f3",
+     "holdout": "beeb7db6899f835224a37fd52799a57260b52ab3b62846262ea06fa6fe5f557e"
+    },
+    "id": "gemma-schema-emission-control",
+    "inference_plan": {
+     "address_space_bytes": 8984133600,
+     "class": "research-1024-mid",
+     "context": 2048,
+     "generation": 1024,
+     "threads": 14,
+     "timeout_seconds": 480
+    },
+    "max_concurrent_jobs": 1,
+    "max_download_bytes": 0,
+    "max_elapsed_seconds": 180,
+    "max_inference_tokens": 3072,
+    "max_money_gbp": 0,
+    "max_requests": 0,
+    "max_storage_bytes": 65536,
+    "model_bytes": 5762908128,
+    "model_path": "/home/richardn/Models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q5_K_M.gguf",
+    "objective": "One packet-grounded proposal from Gemma-4-E4B with a 1024-token generation cap",
+    "parent_objective": "Make the engine truthful: establish whether Gemma can emit grounded proposals under the bounded adapter",
+    "research_case_ids": [
+     "urllib3-retry"
+    ],
+    "search_query": "urllib3 retry Retry-After python"
+   },
+   "state": "completed",
+   "result": {
+    "cases_passed": 1,
+    "cases_total": 1,
+    "evaluation": "pass",
+    "evidence_scope": "packet fidelity (every cited field matches the collector-supplied candidate packet) plus independent component usefulness; not market advantage or adoption"
+   },
+   "inference_reserved": 3072,
+   "mode": "live"
+  }
+ ],
+ "events": [
+  {
+   "goal_id": "gemma-schema-emission-control",
+   "stage": "inference_reservation",
+   "payload": {
+    "calls": 1,
+    "case_ids": [
+     "urllib3-retry"
+    ],
+    "model_bytes": 5762908128,
+    "model_path": "/home/richardn/Models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q5_K_M.gguf",
+    "plan": {
+     "address_space_bytes": 8984133600,
+     "class": "research-1024-mid",
+     "context": 2048,
+     "generation": 1024,
+     "threads": 14,
+     "timeout_seconds": 480
+    },
+    "reserved_tokens": 3072
+   }
+  },
+  {
+   "goal_id": "gemma-schema-emission-control",
+   "stage": "research_review",
+   "payload": {
+    "authority": "advisory only; no download, no adoption authorized",
+    "cases": [
+     {
+      "case_id": "urllib3-retry",
+      "case_pass": true,
+      "elapsed_seconds": 92.214,
+      "execution": "CPU only, 14 threads, context 2048, generation cap 1024",
+      "expectation": "propose",
+      "grounded": true,
+      "independently_useful": true,
+      "output": {
+       "integration_proposal": "The bounded adapter should wrap the urllib3 client's request methods. Upon receiving an HTTP response with a 'Retry-After' header, the adapter must utilize the `Retry.parse_retry_after()` method (available in the packet) to convert the header value into a float representing seconds. This float value must then be used to enforce a cooldown period before initiating the next retry attempt.",
+       "license_spdx": "MIT",
+       "measurable_benefit": "Guaranteed adherence to server-mandated cooldown periods (Retry-After), reducing the probability of HTTP 5xx errors and improving the stability and throughput of data retrieval from external services like GitHub and Contracts Finder.",
+       "pinned_source_url": "https://github.com/urllib3/urllib3",
+       "rejection_conditions": "If the component is used in a configuration where the 'Retry-After' header is present but the parsing logic fails to return a valid float (e.g., due to malformed header content), or if the component is used without the automatic retry mechanism being enabled."
+      },
+      "raw_stdout_tail": "the probability of HTTP 5xx errors and improving the stability and throughput of data retrieval from external services like GitHub and Contracts Finder.\", \"rejection_conditions\": \"If the component is used in a configuration where the 'Retry-After' header is present but the parsing logic fails to return a valid float (e.g., due to malformed header content), or if the component is used without the automatic retry mechanism being enabled.\"}\n\n[ Prompt: 52.6 t/s | Generation: 10.9 t/s ]\n\n\nExiting...\n",
+      "split": "development"
+     }
+    ]
+   }
+  },
+  {
+   "goal_id": "gemma-schema-emission-control",
+   "stage": "evaluation",
+   "payload": {
+    "cases_passed": 1,
+    "cases_total": 1,
+    "evaluation": "pass",
+    "evidence_scope": "packet fidelity (every cited field matches the collector-supplied candidate packet) plus independent component usefulness; not market advantage or adoption"
+   }
+  }
+ ],
+ "_path_note": "model_path values are the verbatim machine-local paths recorded at run time. They are kept unaltered because this file is an evidence record of what actually ran; editing them would misrepresent the run. Replace with your own path to re-execute."
+}

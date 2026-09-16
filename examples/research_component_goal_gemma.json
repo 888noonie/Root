@@ -1,0 +1,16 @@
+{
+ "id": "research-retry-component-gemma",
+ "objective": "Demonstrate the advisory research role on the collector cooldown bottleneck with Gemma-4-E4B",
+ "parent_objective": "Operate ROOT within zero-cash bounds using measured capability improvements",
+ "bottleneck": "Collector retry/cooldown logic is hand-rolled; Qwen 0.5B refuses legitimate proposal tasks, so a stronger advisory model is tested",
+ "search_query": "urllib3 retry Retry-After python",
+ "acceptance": "Every development and holdout case passes: proposal cases return the exact gold pinned_source_url and license_spdx with all schema keys populated; mismatch cases return a refusal rather than a fabricated proposal",
+ "adapter": "research_component_v1",
+ "model_path": "/absolute/path/to/your/model.gguf",
+ "max_requests": 0,
+ "max_download_bytes": 0,
+ "max_elapsed_seconds": 900,
+ "max_inference_tokens": 10240,
+ "max_storage_bytes": 65536,
+ "_model_path_note": "model_path is a machine-local absolute path; replace with your own GGUF. This evidence fixture is retained to document the exact run configuration."
+}

@@ -1,0 +1,39 @@
+{
+ "schema": "prefilter_corpus_v2",
+ "labelling_rule": "legitimate = the component really does implement retry/backoff semantics. mismatch = it does not, for a task needing that capability. 'expect' = the decision the KEYWORD PREFILTER should produce on this text, which is NOT the same as the truth of the component: they diverge where a mismatch mentions retry, or a legitimate component never names it. Divergence is the honest part of this corpus and is measured, not defined away.",
+ "note": "Cases in \"set\": \"challenge\" are text that discusses retry without implementing it. They are counted in their own set so a change that only improves the headline matrix cannot hide behind them. No mismatch is ever redefined to improve a metric.",
+ "cases": [
+  {"id": "legit-urllib3-retry", "kind": "legitimate", "expect": "eligible",
+   "packet": {"readme_excerpt": "urllib3 HTTP client with Retry-After header parsing and backoff.",
+              "source_excerpt": "class Retry: def parse_retry_after(self, retry_after): ..."}},
+  {"id": "legit-requests-retry", "kind": "legitimate", "expect": "eligible",
+   "packet": {"readme_excerpt": "Requests with urllib3 Retry: exponential backoff and a retry adapter.",
+              "source_excerpt": "def retry_policy(): return Retry(total=3, backoff_factor=0.5)"}},
+  {"id": "legit-desktop-app-with-retry-client", "kind": "legitimate", "expect": "eligible",
+   "packet": {"readme_excerpt": "A desktop wallpaper slideshow that downloads images; the bundled HTTP client implements exponential backoff with Retry-After parsing.",
+              "source_excerpt": "def download(url, attempts=3): ... # exponential backoff on 429"}},
+  {"id": "legit-image-tool-with-retry", "kind": "legitimate", "expect": "eligible",
+   "packet": {"readme_excerpt": "Image batch uploader for a desktop GUI; network layer retries with jitter.",
+              "source_excerpt": "def _post_with_retry(req): ... jitter = random.random()"}},
+  {"id": "legit-retry-capable-but-unnamed-in-excerpts", "kind": "legitimate", "expect": "refuse",
+   "packet": {"readme_excerpt": "Thin transport wrapper for internal service calls.",
+              "source_excerpt": "def call(svc, payload, attempts=3):\n    delay = 0.5\n    for i in range(attempts):\n        try: return svc.send(payload)\n        except TransientError: time.sleep(delay); delay *= 2"}},
+
+  {"id": "mismatch-wallpaper", "kind": "mismatch", "expect": "refuse",
+   "packet": {"readme_excerpt": "Wallpaper gallery: lists wallpapers in a directory and renders thumbnails.",
+              "source_excerpt": "def list_wallpapers(path): return sorted(os.listdir(path))"}},
+  {"id": "mismatch-voice-clone", "kind": "mismatch", "expect": "refuse",
+   "packet": {"readme_excerpt": "Voice cloning inference pipeline with speaker embeddings.",
+              "source_excerpt": "def clone_voice(samples): ..."}},
+  {"id": "mismatch-sms-gateway", "kind": "mismatch", "expect": "refuse",
+   "packet": {"readme_excerpt": "Sends SMS messages to customers; images attached as MMS; carrier delivery receipts.",
+              "source_excerpt": "def send_sms(to, body): ..."}},
+  {"id": "mismatch-csv-parser", "kind": "mismatch", "expect": "refuse",
+   "packet": {"readme_excerpt": "CSV parsing with dialect detection.",
+              "source_excerpt": "def sniff(text): ... def parse(text): ..."}},
+
+  {"id": "mismatch-mentions-retry-without-implementing", "kind": "mismatch", "expect": "eligible", "set": "challenge",
+   "packet": {"readme_excerpt": "Docs say: no retry support at all; see the roadmap for backoff plans.",
+              "source_excerpt": "def send(payload): ...  # retry intentionally not implemented"}}
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "schema": "research_screen_goal_v1",
+ "note": "Screen-verification goal for the live CLI run: evaluates ONLY the unseen sms-gateway mismatch against the deterministic capability screen. Digest-pinned at creation; standard manifests untouched.",
+ "id": "screen-verify-sms-gateway",
+ "objective": "Verify the deterministic capability screen stops unsupported candidates before model review",
+ "parent_objective": "Make the engine truthful: unsupported source capabilities stop before any inference",
+ "bottleneck": "Gemma proposed on a plausible-but-wrong packet (wallpaper); a deterministic pre-model screen must stop such candidates before any inference cost",
+ "search_query": "urllib3 retry Retry-After python",
+ "acceptance": "The unseen sms-gateway mismatch is refused by the screen with zero model inference calls; the screen decision is recorded per case; wallpaper-mismatch remains a regression case in the untouched standard manifests",
+ "adapter": "research_component_v1",
+ "evaluation_files": {
+  "development": "research_component.screen_cases.json",
+  "holdout": "research_component.screen_cases.json"
+ },
+ "model_path": "/absolute/path/to/your/model.gguf",
+ "research_generation_cap": 512,
+ "max_requests": 0,
+ "max_download_bytes": 0,
+ "max_elapsed_seconds": 120,
+ "max_inference_tokens": 1536,
+ "max_storage_bytes": 65536,
+ "_model_path_note": "model_path is a machine-local absolute path; replace with your own GGUF. This evidence fixture is retained to document the exact run configuration."
+}

@@ -1,0 +1,519 @@
+{
+  "generated": "2026-09-16T02:25:55.485058+00:00",
+  "snapshot_note": "Timestamped historical snapshot of the publisher's records at 'generated'. Not a live feed: notices are amended and cancelled, so re-query before acting. Hours-remaining values are recomputed at render time from each stored deadline.",
+  "buyer_definition": "east sussex county council",
+  "operator_profile": "small transport operators with 1-8 seat vehicles serving East Sussex school/passenger transport routes",
+  "distribution_state": "prepared preview; not distributed - distribution requires explicit authorization",
+  "notices": [
+    {
+      "ocid": "ocds-b5fd17-27b23d99-adce-4780-ae26-31a8634ef4fb",
+      "release_id": "ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2-914050",
+      "source_date": "2026-09-14T16:23:32+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-16T12:00:00+01:00",
+      "hours_remaining": 8.567920817222223,
+      "urgency": "expires_within_48h",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2",
+      "score": 75,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 48h (8.6h remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-14T16:23:32+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+        "route": {
+          "from_text": "BN22 8LF",
+          "from_postcode": "BN22 8LF",
+          "to_text": "East Sussex College Hastings, TN34 1BA",
+          "to_postcode": "TN34 1BA",
+          "venue": "East Sussex College Hastings"
+        },
+        "vehicle": {
+          "type_text": "Saloon",
+          "seats": null,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "Tuesday - 09:30-16:00"
+        },
+        "passenger_assistant": {
+          "stated_text": "No",
+          "requirement": "not required"
+        },
+        "frequency": "Tuesday - Thursday",
+        "daily_times": "Tuesday - 09:30-16:00",
+        "operator_flags": [],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/ff7f10b1-7acd-4ad3-8eb6-5f7725d302e2",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-01f260ca-e73a-4ce3-bbaf-1667b775d81c",
+      "release_id": "f0db2f8b-49aa-40e5-810b-7b4c901f6308-913956",
+      "source_date": "2026-09-14T11:37:41+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-16T15:00:00+01:00",
+      "hours_remaining": 11.567920817222223,
+      "urgency": "expires_within_48h",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/f0db2f8b-49aa-40e5-810b-7b4c901f6308",
+      "score": 75,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 48h (11.6h remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-14T11:37:41+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+        "route": {
+          "from_text": "TN37 6EF",
+          "from_postcode": "TN37 6EF",
+          "to_text": "Torfield School TN34 3JT",
+          "to_postcode": "TN34 3JT",
+          "venue": "Torfield School"
+        },
+        "vehicle": {
+          "type_text": "Saloon",
+          "seats": null,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "ASD"
+        },
+        "passenger_assistant": {
+          "stated_text": "Yes",
+          "requirement": "required"
+        },
+        "frequency": "Monday to Friday",
+        "daily_times": "09:00-15:00",
+        "operator_flags": [
+          "asd"
+        ],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/f0db2f8b-49aa-40e5-810b-7b4c901f6308",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-4d986b30-e4df-442f-9868-88bee05c4709",
+      "release_id": "88b67042-35a9-46db-b19e-ec745ac0affb-913959",
+      "source_date": "2026-09-14T11:43:33+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-16T15:00:00+01:00",
+      "hours_remaining": 11.567920817222223,
+      "urgency": "expires_within_48h",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/88b67042-35a9-46db-b19e-ec745ac0affb",
+      "score": 75,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 48h (11.6h remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-14T11:43:33+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) - Taxi and MPV (1-8 seats)",
+        "route": {
+          "from_text": "BN22 8JW",
+          "from_postcode": "BN22 8JW",
+          "to_text": "Chailey School, BN8 4PU",
+          "to_postcode": "BN8 4PU",
+          "venue": "Chailey School"
+        },
+        "vehicle": {
+          "type_text": "Saloon",
+          "seats": null,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "ADHD"
+        },
+        "passenger_assistant": {
+          "stated_text": "No",
+          "requirement": "not required"
+        },
+        "frequency": "Monday to Friday",
+        "daily_times": "08:40-15:00",
+        "operator_flags": [
+          "adhd"
+        ],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/88b67042-35a9-46db-b19e-ec745ac0affb",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-3cba68f1-7d49-4d80-9cc9-815a406f6346",
+      "release_id": "392859ec-e188-4629-9a79-5e045efdf9bd-914058",
+      "source_date": "2026-09-14T19:03:37+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-17T10:00:00+01:00",
+      "hours_remaining": 30.56792081722222,
+      "urgency": "expires_within_48h",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/392859ec-e188-4629-9a79-5e045efdf9bd",
+      "score": 75,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 48h (30.6h remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-14T19:03:37+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+        "route": {
+          "from_text": "TN39 5AR",
+          "from_postcode": "TN39 5AR",
+          "to_text": "Torfield School, TN34 3JT",
+          "to_postcode": "TN34 3JT",
+          "venue": "Torfield School"
+        },
+        "vehicle": {
+          "type_text": "6 seat MPV",
+          "seats": 6,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "ASD"
+        },
+        "passenger_assistant": {
+          "stated_text": "yes",
+          "requirement": "required"
+        },
+        "frequency": "Monday to Friday",
+        "daily_times": "09:00-15:15",
+        "operator_flags": [
+          "harness",
+          "space needed",
+          "nonverbal",
+          "hearing impairment",
+          "asd"
+        ],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/392859ec-e188-4629-9a79-5e045efdf9bd",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "seat count 6 read from the notice's vehicle line",
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-1f55720b-b353-4d7f-8815-27bcb5c5f5ee",
+      "release_id": "5bfe505f-4c0b-4f75-83c7-4840897977ca-914168",
+      "source_date": "2026-09-15T13:11:34+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-17T14:00:00+01:00",
+      "hours_remaining": 34.56792081722222,
+      "urgency": "expires_within_48h",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/5bfe505f-4c0b-4f75-83c7-4840897977ca",
+      "score": 75,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 48h (34.6h remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-15T13:11:33+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+        "route": {
+          "from_text": "BN27 2RD",
+          "from_postcode": "BN27 2RD",
+          "to_text": "East Sussex College Eastbourne, BN21 2UF",
+          "to_postcode": "BN21 2UF",
+          "venue": "East Sussex College Eastbourne"
+        },
+        "vehicle": {
+          "type_text": "Saloon",
+          "seats": null,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "Transport Monday, Tuesday, Thursday, Friday 09:30-15:15"
+        },
+        "passenger_assistant": {
+          "stated_text": "Yes",
+          "requirement": "required"
+        },
+        "frequency": "Monday, Tuesday, Thursday, Friday",
+        "daily_times": "09:30-15:15",
+        "operator_flags": [
+          "mobility"
+        ],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/5bfe505f-4c0b-4f75-83c7-4840897977ca",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-b5fd17-f4c69224-f774-4247-8303-6785cac40e8a",
+      "release_id": "604ad569-e560-480f-88a0-3f534f3c2548-914237",
+      "source_date": "2026-09-15T16:33:38+01:00",
+      "superseded_observations": 0,
+      "release_tags": [
+        "tender"
+      ],
+      "carried_forward": [],
+      "title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+      "buyer": "East Sussex County Council",
+      "cpv": "60000000",
+      "deadline": "2026-09-18T10:00:00+01:00",
+      "hours_remaining": 54.56792081722222,
+      "urgency": "expires_within_14d",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/604ad569-e560-480f-88a0-3f534f3c2548",
+      "score": 70,
+      "reasons": [
+        "named buyer",
+        "CPV 60xxxx: transport services",
+        "keyword 'taxi'",
+        "keyword 'mpv'",
+        "keyword 'passenger assistant'",
+        "expires within 14 days (2.3 days remaining)",
+        "tender initiation"
+      ],
+      "publisher_flags": {
+        "sme_declared_by_publisher": true,
+        "sme_note": "publisher flag: states the buyer welcomes SMEs; it does not establish that a 1-8 vehicle operator meets the route's own requirements",
+        "vcse_declared_by_publisher": false
+      },
+      "published": "2026-09-15T16:33:38+01:00",
+      "requirements": {
+        "notice_title": "Taxi and MPV (1-8 seats) Passenger Assistant - Taxi and MPV (1-8 seats) Passenger Assistant",
+        "route": {
+          "from_text": "TN7 4JA",
+          "from_postcode": "TN7 4JA",
+          "to_text": "Priory School, BN7 2XN",
+          "to_postcode": "BN7 2XN",
+          "venue": "Priory School"
+        },
+        "vehicle": {
+          "type_text": "Saloon",
+          "seats": null,
+          "seat_band": "1-8 seats (band stated in the notice title)",
+          "operator_notes": "PA required if travelling alone."
+        },
+        "passenger_assistant": {
+          "stated_text": "PA required if travelling alone.",
+          "requirement": "conditional (as stated in the notice)"
+        },
+        "frequency": "Monday to Friday",
+        "daily_times": "Mon-Fri 08:30-15~15:15",
+        "operator_flags": [],
+        "supplier_registration_requirement": "This opportunity is distributed on SProc.net; the notice states the opportunity has been distributed there, so supplier registration on that portal is a stated condition of bidding; procedure is 'Restricted procedure (above threshold)', which restricts who can be invited to bid",
+        "bidding_access": {
+          "notice_url": "https://www.contractsfinder.service.gov.uk/Notice/604ad569-e560-480f-88a0-3f534f3c2548",
+          "portals": [
+            "https://www.sproc.net"
+          ],
+          "access_note": "open the notice URL to confirm current submission requirements"
+        },
+        "contract": {
+          "method": "Restricted procedure (above threshold)",
+          "period_start": "2026-09-21T01:00:00+01:00",
+          "period_end": "2029-07-31T23:59:59+01:00"
+        },
+        "missing": [
+          "estimated contract value",
+          "award criteria and weightings",
+          "lot structure (whether this notice is one route or a batch)",
+          "submission method",
+          "submission documents beyond the opportunity notice",
+          "insurance, vehicle licence and safeguarding/DBS requirements",
+          "detailed collection/delivery addresses (notice states postcodes and venue names only)"
+        ],
+        "derived": [
+          "1-8 seats (band stated in the notice title)",
+          "route geography taken from postcodes stated in the notice"
+        ]
+      }
+    }
+  ],
+  "relevant_count": 6,
+  "excluded": [],
+  "expired": [],
+  "observations_total": 32,
+  "unique_ocids": 29
+}

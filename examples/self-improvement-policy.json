@@ -1,0 +1,9 @@
+{
+  "max_money_gbp": 0,
+  "max_requests": 12,
+  "max_download_bytes": 1048576,
+  "max_storage_bytes": 16777216,
+  "max_inference_tokens": 2304,
+  "max_elapsed_seconds": 3600,
+  "max_concurrent_jobs": 1
+}

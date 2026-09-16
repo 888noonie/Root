@@ -1,0 +1,12 @@
+{
+  "fixture_notice": "SYNTHETIC: these are not new GitHub observations or upstream code; fixture mode forbids adoption",
+  "search": {"items": [
+    {"full_name": "urllib3/urllib3", "description": "HTTP client for Python with Retry-After parsing and retries", "stargazers_count": 0, "license": {"spdx_id": "MIT"}},
+    {"full_name": "example/wallpaper-gallery", "description": "A wallpaper image gallery and visual theme collection, unrelated to HTTP retries", "stargazers_count": 0, "license": {"spdx_id": "MIT"}}
+  ]},
+  "repository": {"full_name":"urllib3/urllib3", "default_branch":"main", "archived":false, "license":{"spdx_id":"MIT"}},
+  "commit": {"sha":"0000000000000000000000000000000000000000"},
+  "readme": "Synthetic example of an HTTP client component, not an upstream README.",
+  "license": "SYNTHETIC LICENSE FIXTURE. Permission is hereby granted ... THE SOFTWARE IS PROVIDED ... This is not the upstream license.",
+  "source": "# Synthetic parser fixture, not upstream source.\nclass Retry:\n    def parse_retry_after(self, retry_after: str) -> float:\n        if re.match(r'^\\s*[0-9]+\\s*$', retry_after):\n            seconds = int(retry_after)\n        else:\n            retry_date_tuple = email.utils.parsedate_tz(retry_after)\n            if retry_date_tuple is None:\n                raise InvalidHeader('Invalid Retry-After header')\n            retry_date = email.utils.mktime_tz(retry_date_tuple)\n            seconds = retry_date - time.time()\n        seconds = max(seconds, 0)\n        if seconds > self.retry_after_max:\n            seconds = self.retry_after_max\n        return seconds\n"
+}

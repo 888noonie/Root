@@ -1,0 +1,287 @@
+{
+ "schema": "tender_preview_fixture_v1",
+ "note": "Synthetic notices for offline demonstration only. Not real tenders: do not act on them. They exercise in-scope scoring, out-of-scope exclusion, latest-release resolution, and expiry. Observation 2 is a same-ocid amendment with a revised deadline and a distinct release id; it also omits the value stated in observation 1, which must be carried forward and reported.",
+ "now_reference": "2026-09-16T02:00:00+00:00",
+ "observations": [
+  {
+   "ocid": "ocds-b5fd17-synth-0001",
+   "source_date": "2026-09-15T09:00:00+01:00",
+   "payload": {
+    "ocid": "ocds-b5fd17-synth-0001",
+    "id": "synthetic-0001-r1",
+    "date": "2026-09-15T09:00:00+01:00",
+    "initiationType": "tender",
+    "language": "en",
+    "tag": [
+     "tender"
+    ],
+    "buyer": {
+     "id": "GB-CFS-SYNTH",
+     "name": "East Sussex County Council"
+    },
+    "parties": [
+     {
+      "id": "GB-CFS-SYNTH",
+      "name": "East Sussex County Council",
+      "roles": [
+       "buyer"
+      ],
+      "address": {
+       "countryName": "United Kingdom",
+       "locality": "Synthetic",
+       "postalCode": "AA1 1AA"
+      },
+      "contactPoint": {
+       "email": "synthetic@example.invalid",
+       "name": "Synthetic Contact"
+      }
+     }
+    ],
+    "tender": {
+     "title": "Taxi and MPV (1-8 seats) Passenger Assistant",
+     "description": "MVP Vehicle required\r\nVehicle type: 6 seat MPV\r\nPassenger Assistant Required: yes\r\n\r\nProposed Taxi Route:\r\nFrom: TN39 5AR\r\nTo: Torfield School, TN34 3JT\r\n\r\nFrequency: Monday to Friday\r\nDaily School Time: 09:00-15:15\r\n\r\nComments for Operator:\r\nASD\r\nHarness Required\r\n This opportunity has been distributed on SProc.net",
+     "classification": {
+      "id": "60000000",
+      "scheme": "CPV"
+     },
+     "suitability": {
+      "sme": true,
+      "vcse": false
+     },
+     "tenderPeriod": {
+      "endDate": "2026-09-17T10:00:00+01:00"
+     },
+     "status": "active",
+     "datePublished": "2026-09-15T09:00:00+01:00",
+     "contractPeriod": {
+      "startDate": "2026-09-21T01:00:00+01:00",
+      "endDate": "2029-07-31T23:59:59+01:00"
+     },
+     "procurementMethodDetails": "Restricted procedure (above threshold)",
+     "documents": [
+      {
+       "documentType": "tenderNotice",
+       "url": "https://www.contractsfinder.service.gov.uk/Notice/7-synth-0001"
+      },
+      {
+       "id": "2",
+       "url": "https://www.sproc.net"
+      }
+     ],
+     "id": "SYNTHETIC",
+     "value": {
+      "amount": 12500,
+      "currency": "GBP"
+     }
+    }
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-synth-0001",
+   "source_date": "2026-09-16T08:00:00+01:00",
+   "payload": {
+    "ocid": "ocds-b5fd17-synth-0001",
+    "id": "synthetic-0001-r2",
+    "date": "2026-09-16T08:00:00+01:00",
+    "initiationType": "tender",
+    "language": "en",
+    "tag": [
+     "tenderAmendment"
+    ],
+    "buyer": {
+     "id": "GB-CFS-SYNTH",
+     "name": "East Sussex County Council"
+    },
+    "parties": [
+     {
+      "id": "GB-CFS-SYNTH",
+      "name": "East Sussex County Council",
+      "roles": [
+       "buyer"
+      ],
+      "address": {
+       "countryName": "United Kingdom",
+       "locality": "Synthetic",
+       "postalCode": "AA1 1AA"
+      },
+      "contactPoint": {
+       "email": "synthetic@example.invalid",
+       "name": "Synthetic Contact"
+      }
+     }
+    ],
+    "tender": {
+     "title": "Taxi and MPV (1-8 seats) Passenger Assistant",
+     "description": "MVP Vehicle required\r\nVehicle type: 6 seat MPV\r\nPassenger Assistant Required: yes\r\n\r\nProposed Taxi Route:\r\nFrom: TN39 5AR\r\nTo: Torfield School, TN34 3JT\r\n\r\nFrequency: Monday to Friday\r\nDaily School Time: 09:00-15:15\r\n\r\nComments for Operator:\r\nASD\r\nHarness Required\r\n This opportunity has been distributed on SProc.net",
+     "classification": {
+      "id": "60000000",
+      "scheme": "CPV"
+     },
+     "suitability": {
+      "sme": true,
+      "vcse": false
+     },
+     "tenderPeriod": {
+      "endDate": "2026-09-18T10:00:00+01:00"
+     },
+     "status": "active",
+     "datePublished": "2026-09-15T09:00:00+01:00",
+     "contractPeriod": {
+      "startDate": "2026-09-21T01:00:00+01:00",
+      "endDate": "2029-07-31T23:59:59+01:00"
+     },
+     "procurementMethodDetails": "Restricted procedure (above threshold)",
+     "documents": [
+      {
+       "documentType": "tenderNotice",
+       "url": "https://www.contractsfinder.service.gov.uk/Notice/7-synth-0001"
+      },
+      {
+       "id": "2",
+       "url": "https://www.sproc.net"
+      }
+     ],
+     "id": "SYNTHETIC"
+    }
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-synth-0002",
+   "source_date": "2026-09-15T09:30:00+01:00",
+   "payload": {
+    "ocid": "ocds-b5fd17-synth-0002",
+    "id": "synthetic-h-0002",
+    "date": "2026-09-15T09:00:00+01:00",
+    "initiationType": "tender",
+    "language": "en",
+    "tag": [
+     "tender"
+    ],
+    "buyer": {
+     "id": "GB-CFS-SYNTH",
+     "name": "East Sussex County Council"
+    },
+    "parties": [
+     {
+      "id": "GB-CFS-SYNTH",
+      "name": "East Sussex County Council",
+      "roles": [
+       "buyer"
+      ],
+      "address": {
+       "countryName": "United Kingdom",
+       "locality": "Synthetic",
+       "postalCode": "AA1 1AA"
+      },
+      "contactPoint": {
+       "email": "synthetic@example.invalid",
+       "name": "Synthetic Contact"
+      }
+     }
+    ],
+    "tender": {
+     "title": "Wallpaper supply and hanging",
+     "description": "Supply decorative wallpaper to council buildings.",
+     "classification": {
+      "id": "37535100",
+      "scheme": "CPV"
+     },
+     "suitability": {
+      "sme": true,
+      "vcse": false
+     },
+     "tenderPeriod": {
+      "endDate": "2026-10-12T10:00:00+01:00"
+     },
+     "status": "active",
+     "datePublished": "2026-09-15T09:00:00+01:00",
+     "contractPeriod": {
+      "startDate": "2026-09-21T01:00:00+01:00",
+      "endDate": "2029-07-31T23:59:59+01:00"
+     },
+     "procurementMethodDetails": "Restricted procedure (above threshold)",
+     "documents": [
+      {
+       "documentType": "tenderNotice",
+       "url": "https://www.contractsfinder.service.gov.uk/Notice/7-synth-0002"
+      },
+      {
+       "id": "2",
+       "url": "https://www.sproc.net"
+      }
+     ],
+     "id": "SYNTHETIC"
+    }
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-synth-0003",
+   "source_date": "2026-09-15T10:00:00+01:00",
+   "payload": {
+    "ocid": "ocds-b5fd17-synth-0003",
+    "id": "synthetic-h-0003",
+    "date": "2026-09-15T09:00:00+01:00",
+    "initiationType": "tender",
+    "language": "en",
+    "tag": [
+     "tender"
+    ],
+    "buyer": {
+     "id": "GB-CFS-SYNTH",
+     "name": "Another Council"
+    },
+    "parties": [
+     {
+      "id": "GB-CFS-SYNTH",
+      "name": "Another Council",
+      "roles": [
+       "buyer"
+      ],
+      "address": {
+       "countryName": "United Kingdom",
+       "locality": "Synthetic",
+       "postalCode": "AA1 1AA"
+      },
+      "contactPoint": {
+       "email": "synthetic@example.invalid",
+       "name": "Synthetic Contact"
+      }
+     }
+    ],
+    "tender": {
+     "title": "Taxi and MPV (1-8 seats)",
+     "description": "Vehicle type: Saloon\r\nPassenger Assistant Required: No\r\nFrom: AB1 2CD\r\nTo: Somewhere",
+     "classification": {
+      "id": "60000000",
+      "scheme": "CPV"
+     },
+     "suitability": {
+      "sme": true,
+      "vcse": false
+     },
+     "tenderPeriod": {
+      "endDate": "2026-09-20T10:00:00+01:00"
+     },
+     "status": "active",
+     "datePublished": "2026-09-15T09:00:00+01:00",
+     "contractPeriod": {
+      "startDate": "2026-09-21T01:00:00+01:00",
+      "endDate": "2029-07-31T23:59:59+01:00"
+     },
+     "procurementMethodDetails": "Restricted procedure (above threshold)",
+     "documents": [
+      {
+       "documentType": "tenderNotice",
+       "url": "https://www.contractsfinder.service.gov.uk/Notice/7-synth-0003"
+      },
+      {
+       "id": "2",
+       "url": "https://www.sproc.net"
+      }
+     ],
+     "id": "SYNTHETIC"
+    }
+   }
+  }
+ ]
+}

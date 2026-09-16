@@ -1,0 +1,17 @@
+{
+  "id": "respect-source-cooldowns",
+  "objective": "Improve ROOT's public-source collector reliability by respecting longer Retry-After instructions without spending or premature retries",
+  "parent_objective": "Discover evidence-backed advantages with affordable, reliable source collection",
+  "bottleneck": "Existing collector always chooses 300 seconds for 429/403, ignoring larger numeric or date-based Retry-After headers",
+  "adapter": "retry_after_v1",
+  "search_query": "urllib3 HTTP client retry in:name,description language:Python",
+  "fallback_search_query": "urllib3 in:name language:Python",
+  "max_requests": 12,
+  "max_download_bytes": 1048576,
+  "max_elapsed_seconds": 900,
+  "max_inference_tokens": 2304,
+  "max_money_gbp": 0,
+  "max_storage_bytes": 524288,
+  "max_concurrent_jobs": 1,
+  "acceptance": "Candidate must pass every development and holdout case, improve both sets over the fixed-300-second baseline, retain verified MIT license and pinned live upstream revision; then enable only the restricted parser adapter"
+}
