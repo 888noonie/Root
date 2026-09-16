@@ -49,6 +49,13 @@ def main(argv=None):
     for name in ("goal-show", "goal-rollback"):
         command = commands.add_parser(name)
         command.add_argument("--id", required=True)
+    learn_create = commands.add_parser("learn-create")
+    learn_create.add_argument("--file", required=True)
+    learn_run = commands.add_parser("learn-run")
+    learn_run.add_argument("--id", required=True)
+    learn_mode = learn_run.add_mutually_exclusive_group(required=True)
+    learn_mode.add_argument("--fixture")
+    learn_mode.add_argument("--live", action="store_true")
     promote_show = commands.add_parser("promote-show")
     promote_show.add_argument("--id", required=True)
     promote_allow = commands.add_parser("promote-allow")
@@ -92,6 +99,17 @@ def main(argv=None):
                 result = goals.rollback(args.id)
         elif args.command in ("init", "status"):
             result = store.status()
+        elif args.command == "learn-create":
+            from .knowledge import Learning
+            result = Learning(store).create(read_json(args.file))
+        elif args.command == "learn-run":
+            from .knowledge import Learning, run_learning_request
+            learning = Learning(store)
+            result = run_learning_request(
+                learning,
+                args.id,
+                fixture=read_json(args.fixture) if args.fixture else None,
+            )
         elif args.command == "opportunity-add":
             result = {"opportunity_id": store.put_opportunity(read_json(args.file))}
         elif args.command == "collect":

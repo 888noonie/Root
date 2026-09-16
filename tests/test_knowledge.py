@@ -1,4 +1,4 @@
-"""Behavioral contracts for evidence-only learning (plan task 1 — tests before implementation)."""
+"""Behavioral contracts for evidence-only learning (plan task 7 — RED first)."""
 
 import json
 import subprocess
@@ -12,7 +12,6 @@ from root_engine.retry_component import active_delay
 from root_engine.store import Store
 
 
-@unittest.skip("Deferred to plan task 7 (learning loop); tasks 1–5 cover promotion core only.")
 class KnowledgeContractTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
@@ -86,6 +85,78 @@ class KnowledgeContractTests(unittest.TestCase):
             self.assertEqual(self.store.db.execute("SELECT count(*) FROM components").fetchone()[0], 0)
         if self.store.db.execute("SELECT 1 FROM sqlite_master WHERE name='promotions'").fetchone():
             self.assertEqual(self.store.db.execute("SELECT count(*) FROM promotions").fetchone()[0], 0)
+
+    def test_replay_blocked_after_completed(self):
+        from root_engine.knowledge import Learning, run_learning_request
+        from root_engine.store import RootError
+        spec = {
+            "id": "replay", "kind": "unsupported_adapter_research_v1", "trigger": "t",
+            "parent_objective": "po", "need": "n", "practice_fixture": "inline",
+            "acceptance": "a", "max_requests": 0, "max_download_bytes": 0,
+            "max_storage_bytes": 65536, "max_elapsed_seconds": 3600,
+            "max_inference_tokens": 0, "max_money_gbp": 0, "max_concurrent_jobs": 1,
+        }
+        learning = Learning(self.store)
+        learning.create(spec)
+        run_learning_request(learning, spec["id"], fixture={"readme": "# stub\n", "license": "MIT\n", "source": "class Retry:\n def parse_retry_after(self, retry_after):\n  return 900\n"})
+        with self.assertRaisesRegex(RootError, "only 'created'"):
+            run_learning_request(learning, spec["id"], fixture={})
+
+    def test_live_mode_refused(self):
+        from root_engine.knowledge import Learning, run_learning_request
+        from root_engine.store import RootError
+        spec = {
+            "id": "live-refuse", "kind": "unsupported_adapter_research_v1", "trigger": "t",
+            "parent_objective": "po", "need": "n", "practice_fixture": "inline",
+            "acceptance": "a", "max_requests": 0, "max_download_bytes": 0,
+            "max_storage_bytes": 65536, "max_elapsed_seconds": 3600,
+            "max_inference_tokens": 0, "max_money_gbp": 0, "max_concurrent_jobs": 1,
+        }
+        learning = Learning(self.store)
+        learning.create(spec)
+        with self.assertRaisesRegex(RootError, "Live learning retrieval not implemented"):
+            run_learning_request(learning, spec["id"], fixture=None)
+        self.assertEqual(learning.row(spec["id"])["state"], "failed")
+
+    def test_budget_violation_blocks_creation(self):
+        from root_engine.knowledge import Learning
+        from root_engine.store import RootError
+        spec = {
+            "id": "budget", "kind": "unsupported_adapter_research_v1", "trigger": "t",
+            "parent_objective": "po", "need": "n", "practice_fixture": "inline",
+            "acceptance": "a", "max_requests": 0, "max_download_bytes": 0,
+            "max_storage_bytes": 65536, "max_elapsed_seconds": 3600,
+            "max_inference_tokens": 0, "max_money_gbp": 1, "max_concurrent_jobs": 1,
+        }
+        learning = Learning(self.store)
+        with self.assertRaisesRegex(RootError, "zero spending"):
+            learning.create(spec)
+
+    def test_learning_result_is_evidence_only(self):
+        from root_engine.knowledge import Learning, run_learning_request, AUTHORITY_EVIDENCE_ONLY
+        spec = {
+            "id": "evidence-only", "kind": "unsupported_adapter_research_v1", "trigger": "t",
+            "parent_objective": "po", "need": "n", "practice_fixture": "inline",
+            "acceptance": "a", "max_requests": 0, "max_download_bytes": 0,
+            "max_storage_bytes": 65536, "max_elapsed_seconds": 3600,
+            "max_inference_tokens": 0, "max_money_gbp": 0, "max_concurrent_jobs": 1,
+        }
+        learning = Learning(self.store)
+        learning.create(spec)
+        run_learning_request(learning, spec["id"], fixture={"readme": "# stub\n", "license": "MIT\n", "source": "class Retry:\n def parse_retry_after(self, retry_after):\n  return 900\n"})
+        result = learning.row(spec["id"])["result"]
+        self.assertEqual(result["authority"], AUTHORITY_EVIDENCE_ONLY)
+        records = [dict(r) for r in self.store.db.execute("SELECT * FROM knowledge_records WHERE request_id=?", (spec["id"],))]
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["authority"], AUTHORITY_EVIDENCE_ONLY)
+
+    def test_learning_does_not_import_promotion_module(self):
+        import ast
+        path = PROJECT / "root_engine" / "knowledge.py"
+        tree = ast.parse(path.read_text())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom) and node.module:
+                self.assertNotIn("promotion", node.module)
 
 
 if __name__ == "__main__":

@@ -138,7 +138,7 @@ labelled publisher flag, and the fields the notice does **not** publish.
 python3 -W error::ResourceWarning -m unittest discover -s tests -q
 ```
 
-Expected: `Ran 137 tests ... OK`, with no resource warnings. The suite is standard-library only.
+Expected: `Ran 142 tests ... OK`, with no resource warnings. The suite is standard-library only.
 
 ## Architecture
 

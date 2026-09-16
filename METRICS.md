@@ -105,12 +105,18 @@ budget overruns leave the state pending or safely terminal; the saved-goal verif
 before migration and measures rollback against the captured baseline rather than a hardcoded
 300 s. Fixture artifacts are permanently non-promotable.
 
+**Task 7 (learning, evidence-only):** `learn-create`/`learn-run` commands wired;
+learning requests live in `learning_requests` and `knowledge_records` with
+`authority="evidence_only"` and never create components or promotions. Fixture mode
+supported; live mode refused (no network retrieval for this request kind). 142 tests
+pass, zero skipped.
+
 What this establishes: the engine can gate an adoption correctly. It does **not** establish that
 the adopted code was needed, valuable, or that any of it produces revenue.
 
 ## 4. What passing tests mean here
 
-137 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
+142 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
 regression evidence for the code path; they are **not** evidence of general safety, model
 reliability, or demand. No test in this suite observes an external customer.
 
