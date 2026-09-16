@@ -95,12 +95,22 @@ In this project the only component ever adopted was `Retry.parse_retry_after` fr
 development/holdout split (7/12 → 12/12 cases), with rollback exercised on an isolated copy.
 Adoption is a separate step from proposal generation and a model cannot trigger it.
 
+**Promotion-core hardening (Tasks 1–5, 137 tests):** live evaluation now stores the exact
+candidate bytes in SQLite and transitions to `pending_promotion` without changing the active
+component. A separate `promote-allow` command re-evaluates the stored artifact against the
+pinned manifests, provenance fields (curated GitHub URL, 40-char revision, retained MIT
+licence), trusted-code drift manifest, expiry, captured baseline, and lease token before
+atomically activating and marking the goal completed. Tampered rows fail closed; activation
+budget overruns leave the state pending or safely terminal; the saved-goal verifier copies
+before migration and measures rollback against the captured baseline rather than a hardcoded
+300 s. Fixture artifacts are permanently non-promotable.
+
 What this establishes: the engine can gate an adoption correctly. It does **not** establish that
 the adopted code was needed, valuable, or that any of it produces revenue.
 
 ## 4. What passing tests mean here
 
-91 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
+137 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
 regression evidence for the code path; they are **not** evidence of general safety, model
 reliability, or demand. No test in this suite observes an external customer.
 

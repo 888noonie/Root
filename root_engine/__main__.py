@@ -8,6 +8,7 @@ from .collector import Collector, read_json, search_url
 from .brief import generate_brief, render_preview
 from .screen import screen
 from .store import RootError, Store
+from .promotion import PromotionClosed
 
 
 def main(argv=None):
@@ -48,6 +49,15 @@ def main(argv=None):
     for name in ("goal-show", "goal-rollback"):
         command = commands.add_parser(name)
         command.add_argument("--id", required=True)
+    promote_show = commands.add_parser("promote-show")
+    promote_show.add_argument("--id", required=True)
+    promote_allow = commands.add_parser("promote-allow")
+    promote_allow.add_argument("--id", required=True)
+    promote_allow.add_argument("--actor", required=True)
+    promote_deny = commands.add_parser("promote-deny")
+    promote_deny.add_argument("--id", required=True)
+    promote_deny.add_argument("--actor", required=True)
+    promote_deny.add_argument("--reason", required=True)
     args = parser.parse_args(argv)
     store = None
     try:
@@ -58,7 +68,15 @@ def main(argv=None):
         store = Store(args.db, create=args.command == "init",
                       objective=getattr(args, "objective", None),
                       policy=read_json(args.policy) if getattr(args, "policy", None) else None)
-        if args.command.startswith("goal-"):
+        if args.command.startswith("promote-"):
+            from .promotion import PromotionClosed, allow, deny, show as promote_show_fn
+            if args.command == "promote-show":
+                result = promote_show_fn(store, args.id)
+            elif args.command == "promote-allow":
+                result = allow(store, args.id, args.actor)
+            else:
+                result = deny(store, args.id, args.actor, args.reason)
+        elif args.command.startswith("goal-"):
             from .goals import Goals, run_goal
             goals = Goals(store)
             if args.command == "goal-create":
@@ -117,7 +135,15 @@ def main(argv=None):
             return 2
         if args.command == "goal-run" and (result.get("result") or {}).get("evaluation") == "fail":
             return 1
+        if args.command.startswith("promote-") and result.get("state") in ("denied", "expired", "failed", "superseded") and not result.get("idempotent"):
+            return 1
         return 0
+    except PromotionClosed as exc:
+        payload = exc.projection if exc.projection is not None else {"error": str(exc)}
+        if "error" not in payload:
+            payload = dict(payload, error=str(exc))
+        print(json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False))
+        return 1
     except (RootError, OSError, sqlite3.Error, ValueError) as exc:
         print(json.dumps({"error": str(exc)}), file=sys.stderr)
         return 2

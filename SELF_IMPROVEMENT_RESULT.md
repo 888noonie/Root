@@ -13,7 +13,7 @@ Upstream: [urllib3 Retry parser at pinned revision](https://github.com/urllib3/u
 | Holdout | 3/6 | 6/6 |
 | Total | 7/12 | 12/12 |
 
-ROOT conditionally enabled the parser in `.root/self-improve-live2.sqlite3`. A 900-second header now produces a 900-second cooldown instead of 300. The adapter preserves the five-minute minimum and overrides urllib3's upper cap to avoid shortening a server-requested delay. The full remote module is never executed. Only the curated function subset is accepted.
+ROOT previously conditionally enabled the parser in the historical live profile `.root/self-improve-live2.sqlite3`. That demonstrated immediate adoption on pass. **The current promotion core replaces that behavior:** a live pass now leaves the candidate pending; `promote-allow` must be invoked separately to activate the exact stored artifact. The adapter preserves the five-minute minimum and overrides urllib3's upper cap to avoid shortening a server-requested delay. The full remote module is never executed. Only the curated function subset is accepted.
 
 Saved-goal replay left events and resource usage unchanged. Rollback on an isolated SQLite copy restored 300 seconds; the original portfolio retained 900-second behavior. See `.root/rollback-verification.json` or rerun `python3 scripts/verify_saved_goal.py --db .root/self-improve-live2.sqlite3` without network access. 53 automated checks pass, including component rejection, source provenance, independent budgets, query fallback and rollback after deadlines.
 

@@ -69,6 +69,134 @@ CREATE TABLE lease (id INTEGER PRIMARY KEY CHECK(id=1), expires REAL NOT NULL, t
 PRAGMA user_version = 1;
 """
 
+SCHEMA_V2_STATEMENTS = (
+    """CREATE TABLE promotions (
+    id TEXT PRIMARY KEY,
+    goal_id TEXT NOT NULL REFERENCES goals(id),
+    target TEXT NOT NULL,
+    artifact_kind TEXT NOT NULL,
+    artifact BLOB NOT NULL,
+    artifact_sha256 TEXT NOT NULL CHECK(length(artifact_sha256)=64 AND artifact_sha256 NOT GLOB '*[^0-9a-f]*'),
+    source_url TEXT NOT NULL,
+    upstream_revision TEXT NOT NULL CHECK(length(upstream_revision)=40 AND upstream_revision NOT GLOB '*[^0-9a-f]*'),
+    license TEXT NOT NULL,
+    mode TEXT NOT NULL CHECK(mode IN ('live','fixture')),
+    evaluation_manifest TEXT NOT NULL,
+    evaluation_receipt TEXT NOT NULL,
+    trusted_manifest TEXT NOT NULL,
+    baseline_component_id TEXT REFERENCES components(id),
+    state TEXT NOT NULL CHECK(state IN ('pending','evaluating','promoted','denied','expired','failed','superseded')),
+    created REAL NOT NULL,
+    expires REAL NOT NULL,
+    decided REAL,
+    decision_actor TEXT,
+    decision_reason TEXT,
+    component_id TEXT,
+    attempt_token TEXT,
+    attempt_expires REAL
+)""",
+    """CREATE UNIQUE INDEX one_open_promotion_per_baseline
+    ON promotions(target, ifnull(baseline_component_id, ''))
+    WHERE state IN ('pending','evaluating')""",
+    """CREATE TABLE promotion_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    promotion_id TEXT NOT NULL REFERENCES promotions(id),
+    created REAL NOT NULL,
+    stage TEXT NOT NULL,
+    payload TEXT NOT NULL
+)""",
+    """CREATE TABLE learning_requests (
+    id TEXT PRIMARY KEY,
+    spec TEXT NOT NULL,
+    created REAL NOT NULL,
+    deadline REAL NOT NULL,
+    state TEXT NOT NULL,
+    mode TEXT,
+    requests INTEGER NOT NULL DEFAULT 0,
+    downloaded_bytes INTEGER NOT NULL DEFAULT 0,
+    result TEXT
+)""",
+    """CREATE TABLE knowledge_records (
+    id TEXT PRIMARY KEY,
+    request_id TEXT NOT NULL REFERENCES learning_requests(id),
+    trigger TEXT NOT NULL,
+    source_url TEXT,
+    upstream_revision TEXT,
+    license_status TEXT,
+    retrieved REAL NOT NULL,
+    claims TEXT NOT NULL,
+    evidence_refs TEXT NOT NULL,
+    practice_receipt TEXT NOT NULL,
+    mode TEXT NOT NULL,
+    authority TEXT NOT NULL
+)""",
+    """CREATE TABLE learning_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    request_id TEXT NOT NULL REFERENCES learning_requests(id),
+    created REAL NOT NULL,
+    stage TEXT NOT NULL,
+    payload TEXT NOT NULL
+)""",
+)
+
+
+REQUIRED_V2_COLUMNS = {
+    "promotions": {"id", "goal_id", "artifact", "artifact_sha256", "state", "attempt_token"},
+    "promotion_events": {"id", "promotion_id", "stage", "payload"},
+    "learning_requests": {"id", "spec", "state", "result"},
+    "knowledge_records": {"id", "request_id", "claims", "authority"},
+    "learning_events": {"id", "request_id", "stage", "payload"},
+}
+
+
+def validate_schema_v2(db):
+    failures = []
+    for table, required in REQUIRED_V2_COLUMNS.items():
+        columns = {row[1] for row in db.execute(f"PRAGMA table_info({table})")}
+        if not required <= columns:
+            failures.append(table)
+    if not db.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='index' AND name='one_open_promotion_per_baseline'"
+    ).fetchone():
+        failures.append("one_open_promotion_per_baseline")
+    expected_foreign_keys = {
+        "promotions": {"goals", "components"},
+        "promotion_events": {"promotions"},
+        "knowledge_records": {"learning_requests"},
+        "learning_events": {"learning_requests"},
+    }
+    for table, required in expected_foreign_keys.items():
+        actual = {row[2] for row in db.execute(f"PRAGMA foreign_key_list({table})")}
+        if not required <= actual:
+            failures.append(f"{table} foreign keys")
+    if db.execute("PRAGMA foreign_key_check").fetchone():
+        failures.append("foreign_key_check")
+    if failures:
+        raise RootError("Malformed schema v2: " + ", ".join(failures))
+
+
+def migrate_schema_v2(db, *, inject_failure_after=None):
+    version = db.execute("PRAGMA user_version").fetchone()[0]
+    if version == 2:
+        validate_schema_v2(db)
+        return
+    if version != 1:
+        raise RootError("Unsupported database schema version")
+    db.execute("BEGIN IMMEDIATE")
+    try:
+        for index, statement in enumerate(SCHEMA_V2_STATEMENTS):
+            if inject_failure_after is not None and index == inject_failure_after:
+                raise RootError("injected migration failure")
+            db.execute(statement)
+        db.execute("PRAGMA user_version = 2")
+        db.execute("COMMIT")
+    except BaseException:
+        db.execute("ROLLBACK")
+        raise
+    if db.execute("PRAGMA user_version").fetchone()[0] != 2:
+        raise RootError("Schema migration failed")
+    validate_schema_v2(db)
+
 
 class Store:
     def __init__(self, path, *, create=False, objective=None, policy=None, now=time.time):
@@ -95,8 +223,13 @@ class Store:
             created = self.now()
             self.db.execute("INSERT INTO portfolio(id, objective, policy, created, deadline) VALUES(1,?,?,?,?)",
                             (objective, encode(policy), created, created + policy["max_elapsed_seconds"]))
-        if self.db.execute("PRAGMA user_version").fetchone()[0] != 1:
-            raise RootError("Unsupported database schema version")
+        try:
+            migrate_schema_v2(self.db)
+            if self.db.execute("PRAGMA user_version").fetchone()[0] != 2:
+                raise RootError("Unsupported database schema version")
+        except BaseException:
+            self.db.close()
+            raise
 
     def close(self):
         self.db.close()

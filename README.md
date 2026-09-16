@@ -55,16 +55,21 @@ python3 scripts/verify_saved_goal.py --db .root/self-improve-live2.sqlite3
 
 The verifier checks that completed-goal replay makes no repeated effects, then exercises rollback on a temporary SQLite copy; the original adapter stays enabled. The adopted parser changes collector behavior only for its portfolio database. It retains the complete source file and MIT license in SQLite; only the restricted named function is executed, never the full fetched module. It uses standard-library dependencies with no package installation. Function syntax, names, calls and regex are constrained; candidate evaluation runs in a separate Python process with no inherited credentials and memory/CPU limits.
 
-For a separately budgeted new demonstration:
+For a separately budgeted new demonstration, the live pass now leaves the candidate **pending** rather than activating it immediately. An explicit operator command is required to promote:
 
 ```sh
 python3 -m root_engine --db .root/self-improve.sqlite3 init --objective 'Improve affordable, reliable public-source collection' --policy examples/self-improvement-policy.json
 python3 -m root_engine --db .root/self-improve.sqlite3 goal-create --file examples/self_improvement_goal.json
 python3 -m root_engine --db .root/self-improve.sqlite3 goal-run --id respect-source-cooldowns --live
 python3 -m root_engine --db .root/self-improve.sqlite3 goal-show --id respect-source-cooldowns
+# pending promotion row; no behavior change yet
+python3 -m root_engine --db .root/self-improve.sqlite3 promote-show --id <PROMOTION_ID>
+python3 -m root_engine --db .root/self-improve.sqlite3 promote-allow --id <PROMOTION_ID> --actor operator
 ```
 
-Use `--fixture examples/github.synthetic.json` instead of `--live` for offline replay. It may pass behavioral evaluation but cannot enable an upstream component. An already-satisfied goal skips discovery and adoption. A stopped/interrupted goal does not silently restart or replenish allowances. A new goal requires a new explicit specification within the portfolio's remaining limits. `goal-run` exits 2 for a stopped goal and 1 for a failed evaluation.
+`promote-allow` re-evaluates the exact stored artifact bytes, the pinned case manifests, provenance, licence, and trusted-code drift fingerprint before atomically switching the active component pointer. Fixture passes remain non-promotable and cannot be allowed. `promote-show` is read-only and JSON-safe. `promote-deny --id <PROMOTION_ID> --actor <label> --reason <text>` closes the request without activation. All three commands emit canonical JSON; a passing live evaluation alone never changes collector behavior.
+
+Use `--fixture examples/github.synthetic.json` instead of `--live` for offline replay. It may pass behavioral evaluation but never creates a promotable artifact. An already-satisfied goal skips discovery and adoption. A stopped/interrupted goal does not silently restart or replenish allowances. A new goal requires a new explicit specification within the portfolio's remaining limits. `goal-run` exits 2 for a stopped goal and 1 for a failed evaluation.
 
 Goal request/body-byte/time/inference limits are independent of the portfolio limits. New specifications also declare zero spending, one concurrent job and a record-storage limit. Record storage counts UTF-8 payloads plus a conservative row overhead; the portfolio separately caps SQLite page allocation. New goals record hashes of development and holdout inputs at creation and refuse execution if they change. Earlier saved demonstration profiles retain their baseline case snapshots instead. Stop and audit records are preserved even after time runs out. `goal-rollback --id ...` remains available after deadlines expire and does not shorten any already-promised source cooldown.
 
@@ -133,7 +138,7 @@ labelled publisher flag, and the fields the notice does **not** publish.
 python3 -W error::ResourceWarning -m unittest discover -s tests -q
 ```
 
-Expected: `Ran 91 tests ... OK`, with no resource warnings. The suite is standard-library only.
+Expected: `Ran 137 tests ... OK`, with no resource warnings. The suite is standard-library only.
 
 ## Architecture
 

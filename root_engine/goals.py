@@ -14,7 +14,7 @@ from pathlib import Path
 from .collector import NoRedirect, read_json
 from .local_models import DEFAULT_MODEL, RESERVED_TOKENS_PER_CALL, classify, inference_plan, research_inference_plan
 from .research import validate_research_output
-from .retry_component import COMPONENT, candidate_delay, extract_parser
+from .retry_component import COMPONENT, candidate_delay
 from .screen import screen_packet
 from .store import BudgetError, RootError, digest, encode
 
@@ -121,6 +121,22 @@ class Goals:
         for table, fields in (("goal_events", ("payload", "stage")), ("repo_evidence", ("body", "url")), ("components", ("source", "license", "revision"))):
             expression = "+".join(f"length(CAST({field} AS BLOB))" for field in fields)
             total += self.store.db.execute(f"SELECT coalesce(sum({expression}+512),0) FROM {table} WHERE goal_id=?", (goal_id,)).fetchone()[0]
+        if self.store.db.execute("SELECT 1 FROM sqlite_master WHERE name='promotions'").fetchone():
+            total += self.store.db.execute(
+                """SELECT coalesce(sum(
+                    length(id)+length(goal_id)+length(target)+length(artifact_kind)+length(artifact)+length(artifact_sha256)
+                    +length(source_url)+length(upstream_revision)+length(license)+length(mode)+length(evaluation_manifest)
+                    +length(evaluation_receipt)+length(trusted_manifest)+coalesce(length(baseline_component_id),0)+length(state)
+                    +coalesce(length(decision_actor),0)+coalesce(length(decision_reason),0)+coalesce(length(component_id),0)
+                    +coalesce(length(attempt_token),0)+2048
+                ),0) FROM promotions WHERE goal_id=?""",
+                (goal_id,),
+            ).fetchone()[0]
+            total += self.store.db.execute(
+                """SELECT coalesce(sum(length(stage)+length(payload)+512),0) FROM promotion_events
+                   WHERE promotion_id IN (SELECT id FROM promotions WHERE goal_id=?)""",
+                (goal_id,),
+            ).fetchone()[0]
         return total
 
     def check(self, goal_id, extra_storage=0):
@@ -305,10 +321,14 @@ class GitHub:
                 "integration": "Restricted parser only; standard-library dependencies, zero package install; full HTTP client not adopted"}
 
 
-def benchmark(source, baseline_source=None):
+def _retry_case_filename(name, evaluation_files=None):
+    return evaluation_files.get(name) if evaluation_files else f"retry_after.{name}.json"
+
+
+def benchmark(source, baseline_source=None, evaluation_files=None):
     output = {}
     for name in ("development", "holdout"):
-        cases = read_json(PROJECT / f"examples/retry_after.{name}.json")
+        cases = read_json(PROJECT / "examples" / _retry_case_filename(name, evaluation_files))
         baseline = []
         for case in cases:
             value = candidate_delay(baseline_source, case["header"], case["now"]) if baseline_source else 300
@@ -316,7 +336,6 @@ def benchmark(source, baseline_source=None):
         if source is None:
             candidate = []
         else:
-            extract_parser(source)
             result = subprocess.run([sys.executable, "-I", "-S", str(PROJECT / "root_engine/evaluate_component.py")],
                                     input=encode({"source": source, "cases": cases}), capture_output=True, text=True, timeout=5,
                                     env={"PATH": "/usr/bin", "LANG": "C.UTF-8"})
@@ -434,7 +453,7 @@ def _run_research_goal(goals, row):
 
 def run_goal(goals, goal_id, *, fixture=None, opener=None, local_review=False):
     row = goals.row(goal_id)
-    if row["state"] in ("completed", "evaluated_fixture", "rolled_back", "stopped"):
+    if row["state"] in ("completed", "evaluated_fixture", "rolled_back", "stopped", "pending_promotion"):
         return goals.view(goal_id)
     if row["state"] != "created":
         raise RootError("An interrupted running goal is paused; create a separately budgeted goal instead of silently restarting it")
@@ -446,12 +465,16 @@ def run_goal(goals, goal_id, *, fixture=None, opener=None, local_review=False):
             if row["spec"]["adapter"] == "research_component_v1":
                 _run_research_goal(goals, row)
                 return goals.view(goal_id)
-            current_manifest = {name: digest(read_json(PROJECT / f"examples/retry_after.{name}.json")) for name in ("development", "holdout")}
+            evaluation_files = row["spec"].get("evaluation_files")
+            current_manifest = {
+                name: digest(read_json(PROJECT / "examples" / _retry_case_filename(name, evaluation_files)))
+                for name in ("development", "holdout")
+            }
             if declared_manifest is not None and declared_manifest != current_manifest:
                 raise RootError("Evaluation cases changed after goal creation; no discovery or adoption permitted")
             active = goals.store.db.execute("SELECT source FROM components WHERE name=? AND active=1", (COMPONENT,)).fetchone()
             baseline_source = active[0] if active else None
-            initial = benchmark(None, baseline_source=baseline_source)
+            initial = benchmark(None, baseline_source=baseline_source, evaluation_files=evaluation_files)
             goals.record(goal_id, "baseline", initial)
             if all(data["baseline_passes"] == data["total"] for data in initial.values()):
                 result = {"evaluation": "already_satisfied", "adoption": "no_change", "measurements": initial}
@@ -484,26 +507,46 @@ def run_goal(goals, goal_id, *, fixture=None, opener=None, local_review=False):
                     except RootError as exc:
                         reviews.append({"repository": item["repository"], "uncertain": str(exc)})
                 goals.record(goal_id, "advisory_review", reviews)
-            measured = benchmark(discovery["source"], baseline_source=baseline_source)
+            measured = benchmark(discovery["source"], baseline_source=baseline_source, evaluation_files=evaluation_files)
             passed = all(data["candidate_passes"] == data["total"] and data["candidate_passes"] > data["baseline_passes"] for data in measured.values())
             result = {"evaluation": "pass" if passed else "fail", "measurements": measured, "mode": discovery["mode"],
                       "adoption": "not_adopted", "upstream_revision": discovery["revision"], "source_url": discovery["source_url"],
-                      "evidence_scope": "collector correctness on saved cases; not market advantage or revenue"}
+                      "evidence_scope": "collector correctness on saved cases; not market advantage or revenue",
+                      "promotable": False}
             goals.record(goal_id, "evaluation", result)
             if passed and discovery["mode"] == "live":
-                with goals.store.transaction():
-                    goals.check(goal_id, len(discovery["source"].encode()) + len(discovery["license"].encode()) + len(encode(result).encode()) + 2048)
-                    goals.store.check(len(discovery["source"].encode()) * 2 + len(discovery["license"].encode()) + 16384)
-                    previous = goals.store.db.execute("SELECT id FROM components WHERE name=? AND active=1", (COMPONENT,)).fetchone()
-                    component_id = digest([COMPONENT, discovery["revision"], discovery["source"]])
-                    goals.store.db.execute("UPDATE components SET active=0 WHERE name=?", (COMPONENT,))
-                    goals.store.db.execute("INSERT INTO components VALUES(?,?,?,?,?,?,1) ON CONFLICT(id) DO UPDATE SET active=1",
-                                           (component_id, COMPONENT, goal_id, discovery["revision"], discovery["source"], discovery["license"]))
-                    result.update(adoption="enabled_restricted_adapter", component_id=component_id, previous_component_id=previous[0] if previous else None)
-                    goals.store.check()
-                    goals.store.db.execute("UPDATE goals SET state='completed',result=? WHERE id=?", (encode(result), goal_id))
+                from .promotion import create_pending_retry_after, promotion_id_for
+                import hashlib
+
+                previous = goals.store.db.execute("SELECT id FROM components WHERE name=? AND active=1", (COMPONENT,)).fetchone()
+                baseline_component_id = previous[0] if previous else None
+                promotion_id = promotion_id_for(
+                    goal_id,
+                    hashlib.sha256(discovery["source"].encode("utf-8")).hexdigest(),
+                    baseline_component_id,
+                )
+                result.update(
+                    adoption="pending_operator",
+                    promotable=True,
+                    promotion_id=promotion_id,
+                    baseline_component_id=baseline_component_id,
+                )
+                create_pending_retry_after(
+                    goals,
+                    goal_id,
+                    discovery,
+                    measured,
+                    baseline_component_id,
+                    expires=row["deadline"],
+                    result=result,
+                )
             else:
-                goals.store.db.execute("UPDATE goals SET state=?,result=? WHERE id=?", ("evaluated_fixture" if fixture is not None else "completed", encode(result), goal_id))
+                if passed and fixture is not None:
+                    result["promotable"] = False
+                goals.store.db.execute(
+                    "UPDATE goals SET state=?,result=? WHERE id=?",
+                    ("evaluated_fixture" if fixture is not None else "completed", encode(result), goal_id),
+                )
         except (RootError, OSError, ValueError, KeyError, TypeError, AttributeError, subprocess.TimeoutExpired, SyntaxError) as exc:
             # A bounded terminal audit is kept even after a time/request gate stops work.
             result = {"evaluation": "uncertain", "adoption": "not_adopted", "error": str(exc)[:1000]}

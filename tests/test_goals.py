@@ -11,6 +11,7 @@ from unittest.mock import patch
 
 from root_engine.collector import Collector, ENDPOINT, SOURCE
 from root_engine.goals import Goals, GitHub, PROJECT, benchmark, run_goal
+from root_engine.promotion import promote_allow
 from root_engine.local_models import RESERVED_TOKENS_PER_CALL
 from root_engine.retry_component import active_delay, candidate_delay, extract_parser
 from root_engine.store import BudgetError, RootError, Store
@@ -45,14 +46,17 @@ class GoalTests(unittest.TestCase):
         self.assertEqual(result["state"], "evaluated_fixture")
         self.assertEqual(result["result"]["evaluation"], "pass")
         self.assertEqual(result["result"]["adoption"], "not_adopted")
+        self.assertEqual(result["result"].get("promotable"), False)
         self.assertEqual(active_delay(self.store, "900"), 300)
         self.assertEqual(result["requests"], 0)
         self.assertTrue(all(ref["mode"] == "fixture" for ref in result["evidence"]))
 
     def test_mock_live_pipeline_adopts_only_passing_pinned_component(self):
         result = run_goal(self.goals, self.spec["id"], opener=self.opener())
-        self.assertEqual(result["state"], "completed")
-        self.assertEqual(result["result"]["adoption"], "enabled_restricted_adapter")
+        self.assertEqual(result["state"], "pending_promotion")
+        self.assertEqual(result["result"]["adoption"], "pending_operator")
+        self.assertEqual(active_delay(self.store, "900"), 300)
+        promote_allow(self.store, result["result"]["promotion_id"], actor="test-operator")
         self.assertEqual(active_delay(self.store, "900"), 900)
         self.assertEqual(result["requests"], 6)
         self.assertEqual(result["requests"], self.store.portfolio()["requests"])
@@ -64,7 +68,8 @@ class GoalTests(unittest.TestCase):
         self.assertEqual(run_goal(self.goals, self.spec["id"])["requests"], 6)
 
     def test_adopted_component_changes_collector_cooldown_and_rollback_restores_it(self):
-        run_goal(self.goals, self.spec["id"], opener=self.opener())
+        pending = run_goal(self.goals, self.spec["id"], opener=self.opener())
+        promote_allow(self.store, pending["result"]["promotion_id"], actor="test-operator")
         def forbidden(req, timeout):
             raise urllib.error.HTTPError(req.full_url, 429, "Rate limited", {"Retry-After": "900"}, None)
         with self.assertRaises(RootError):
@@ -248,7 +253,8 @@ class GoalTests(unittest.TestCase):
         self.assertEqual(result["result"]["adoption"], "not_adopted")
 
     def test_already_satisfied_goal_does_not_repeat_discovery_or_adoption(self):
-        run_goal(self.goals, self.spec["id"], opener=self.opener())
+        pending = run_goal(self.goals, self.spec["id"], opener=self.opener())
+        promote_allow(self.store, pending["result"]["promotion_id"], actor="test-operator")
         second = dict(self.spec, id="no-duplicate-improvement")
         self.goals.create(second)
         result = run_goal(self.goals, second["id"], opener=lambda *args, **kwargs: self.fail("No new requests expected"))
@@ -256,7 +262,8 @@ class GoalTests(unittest.TestCase):
         self.assertEqual(result["requests"], 0)
 
     def test_rollback_is_available_after_budgets_expire(self):
-        run_goal(self.goals, self.spec["id"], opener=self.opener())
+        pending = run_goal(self.goals, self.spec["id"], opener=self.opener())
+        promote_allow(self.store, pending["result"]["promotion_id"], actor="test-operator")
         self.clock[0] = self.store.portfolio()["deadline"] + 1
         self.goals.rollback(self.spec["id"])
         self.assertEqual(active_delay(self.store, "900"), 300)
