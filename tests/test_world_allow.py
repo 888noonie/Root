@@ -119,6 +119,45 @@ class WorldAllowTests(unittest.TestCase):
         if self.store.db.execute("SELECT 1 FROM sqlite_master WHERE name='components'").fetchone():
             self.assertEqual(self.store.db.execute("SELECT count(*) FROM components").fetchone()[0], 0)
 
+    def test_allow_refuses_when_copy_would_overflow_storage_budget(self):
+        # A pending live row already accounted for its bytes, but allow copies those bytes into
+        # packages+observations; a portfolio with no room for that copy must fail closed.
+        from root_engine.worldmonitor import world_allow
+        from root_engine.store import BudgetError, Store
+        # Create a tiny-budget store, seed a pending live row at ingest time, then drop the budget
+        # so the allow copy would overflow. Use a separate small store to avoid disturbing others.
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            tiny = Path(d) / "tiny.sqlite3"
+            store = Store(tiny, create=True, objective="tiny", now=lambda: self.clock[0])
+            store.db.execute("UPDATE portfolio SET policy=? WHERE id=1", (
+                __import__("json").dumps({
+                    "max_money_gbp": 0, "max_requests": 3, "max_download_bytes": 2 * 1024 * 1024,
+                    "max_storage_bytes": 65536, "max_inference_tokens": 0,
+                    "max_elapsed_seconds": 3600, "max_concurrent_jobs": 1,
+                }),))
+            payload = {"ocid": "ocds-over-1", "id": "over-1",
+                       "source_url": "https://www.contractsfinder.service.gov.uk/x",
+                       "kind": "tender", "value": 1}
+            big = {"ocid": "ocds-over-1", "id": "over-1",
+                   "source_url": "https://www.contractsfinder.service.gov.uk/x",
+                   "kind": "tender", "value": 1, "blob": "x" * 300000}
+            from root_engine import worldmonitor as wm
+            wm._ensure_gate_schema(store)
+            encoded = __import__("root_engine.store", fromlist=["encode"]).encode(big)
+            oid = __import__("root_engine.store", fromlist=["digest"]).digest(["wm", "live", big["ocid"], big["id"], encoded])[:32]
+            store.db.execute(
+                "INSERT INTO world_pending_observations("
+                " id,kind,ocid,release_id,source_url,mode,payload,payload_sha256,state,created,expires,decided,decision_actor,decision_reason)"
+                " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (oid, wm.KIND, big["ocid"], big["id"], big["source_url"], "live", encoded,
+                 __import__("hashlib").sha256(encoded.encode()).hexdigest(), "pending", self.clock[0],
+                 store.portfolio()["deadline"], None, None, None))
+            with self.assertRaises(BudgetError):
+                world_allow(store, oid, actor="operator")
+            self.assertEqual(store.db.execute("SELECT count(*) FROM observations").fetchone()[0], 0)
+            store.close()
+
     def test_cli_world_allow_refuses_fixture(self):
         from root_engine.worldmonitor import world_ingest_fixture
         result = world_ingest_fixture(self.store, {"observations": [

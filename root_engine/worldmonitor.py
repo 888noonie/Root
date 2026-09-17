@@ -254,6 +254,8 @@ def world_allow(store, observation_id, *, actor):
       - exact stored bytes + SHA are re-checked; a mismatch aborts with no insert.
       - only `pending`, unexpired, `live` rows are eligible.
       - the insert is a single transaction; a second allow is idempotent (no duplicate).
+      - storage is pre-reserved for the authoritative copy (packages + observations) before
+        anything is written, so a copy under an active budget cannot silently overflow.
     """
     _ensure_gate_schema(store)
     actor = _require_actor(actor)
@@ -278,6 +280,10 @@ def world_allow(store, observation_id, *, actor):
         now = store.now()
         package = {"version": "1.1", "uri": row["source_url"], "license": "world-gate",
                    "releases": [raw], "links": {}}
+        # Pre-reserve storage for the authoritative copy (package row + observation row), so the
+        # allow cannot overflow the portfolio budget that the pending ingest already accounted for.
+        copy_bytes = len(encode(package).encode("utf-8")) + len(encode(raw).encode("utf-8"))
+        store.check(copy_bytes + ROW_OVERHEAD + 4096)
         # Reuse the store's authoritative package/observation digest mapping exactly, inline
         # within this single transaction (save_package opens its own transaction, so we
         # replicate its INSERT here rather than nest).
