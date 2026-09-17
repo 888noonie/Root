@@ -9,3 +9,7 @@ __pycache__/
 *.gguf
 .env
 .env.*
+Github Key cursor - git-ignore.md
+*git-ignore.md
+*github*token*
+*Github Key*
