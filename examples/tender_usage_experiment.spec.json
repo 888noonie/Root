@@ -1,0 +1,15 @@
+{
+  "id": "tender-preview-usefulness",
+  "kind": "tender_preview_usefulness_v1",
+  "hypothesis": "The deterministic tender preview reduces an operator's effort to find actionable transport opportunities.",
+  "baseline_metric": {
+    "name": "operator_minutes_per_week",
+    "value": null,
+    "note": "declared unknown pending an operator interview; never zero-filled"
+  },
+  "evidence_refs": [],
+  "pass_criterion": "operator reports a measurable effort reduction and asks for the next brief unprompted",
+  "fail_criterion": "operator reports no effort reduction or rejects the preview",
+  "max_elapsed_seconds": 3600,
+  "zero_money_gbp": true
+}

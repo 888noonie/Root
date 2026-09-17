@@ -90,6 +90,15 @@ def main(argv=None):
     world_deny.add_argument("--actor", required=True)
     world_deny.add_argument("--reason", required=True)
     commands.add_parser("heartbeat-once", help="Run at most one deterministic due job in the current window; never a daemon")
+    experiment_create = commands.add_parser("experiment-create")
+    experiment_create.add_argument("--file", required=True)
+    experiment_run = commands.add_parser("experiment-run")
+    experiment_run.add_argument("--id", required=True)
+    experiment_run.add_argument("--outcome", required=True)
+    experiment_run.add_argument("--evidence", action="append", default=[])
+    experiment_run.add_argument("--note", default="")
+    experiment_show = commands.add_parser("experiment-show")
+    experiment_show.add_argument("--id", required=True)
     args = parser.parse_args(argv)
     store = None
     try:
@@ -144,6 +153,15 @@ def main(argv=None):
         elif args.command == "heartbeat-once":
             from .heartbeat import tick_once
             result = tick_once(store)
+        elif args.command.startswith("experiment-"):
+            from .experiment import Experiments
+            experiments = Experiments(store)
+            if args.command == "experiment-create":
+                result = experiments.create(read_json(args.file))
+            elif args.command == "experiment-run":
+                result = experiments.run(args.id, outcome=args.outcome, evidence_refs=args.evidence, note=args.note)
+            else:
+                result = experiments.show(args.id)
         elif args.command.startswith("world-"):
             from .worldmonitor import world_allow as world_allow_fn
             from .worldmonitor import world_deny as world_deny_fn
@@ -203,6 +221,8 @@ def main(argv=None):
         if args.command == "goal-run" and result["state"] == "stopped":
             return 2
         if args.command == "goal-run" and (result.get("result") or {}).get("evaluation") == "fail":
+            return 1
+        if args.command == "experiment-run" and isinstance(result, dict) and result.get("token_issue") == "fail":
             return 1
         if args.command.startswith("promote-") and result.get("state") in ("denied", "expired", "failed", "superseded") and not result.get("idempotent"):
             return 1
