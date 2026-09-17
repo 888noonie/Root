@@ -23,6 +23,7 @@ import json
 import re
 import urllib.parse
 
+from .collector import ENDPOINT, Collector, search_url, validate_package, validate_url
 from .store import RootError, digest, encode
 
 KIND = "world_monitor_ingest_v1"
@@ -143,6 +144,56 @@ def world_ingest_fixture(store, batch, *, actor):
             rows.append(row)
         store.check()
     return {"mode": "fixture", "ingested": len(rows), "pending": [r["id"] for r in rows]}
+
+
+def world_ingest_live(store, published_from, published_to, *, actor, opener=None, source_url=None):
+    """Fetch one bounded OCDS page via the shared collector path and hold it pending (mode=live).
+
+    - The URL is the exact Contracts Finder search endpoint built by `collector.search_url`
+      (single shared allowlist constant; an overridden source_url is rejected unless it stays
+      on that endpoint — no arbitrary host).
+    - Retrieval reuses `Collector.fetch`: bounded request/byte budgets, timeout, redirect
+      refusal, source cooldown.
+    - The parsed package's releases go into `world_pending_observations` with mode=live and
+      exact bytes+SHA; they never touch `observations` until an explicit `world-allow`.
+    """
+    _ensure_gate_schema(store)
+    if not isinstance(actor, str) or not actor.strip() or len(actor.encode("utf-8")) > 120:
+        raise RootError("actor must be a nonempty label of at most 120 UTF-8 bytes")
+    url = source_url if source_url is not None else search_url(published_from, published_to, 20)
+    validate_url(url)  # allowlist: must stay on the exact Contracts Finder search endpoint
+    collector = Collector(store, opener=opener)
+    package = collector.fetch(url)
+    validate_package(package)
+
+    rows = []
+    with store.transaction():
+        store.check(len(encode(package).encode("utf-8")) + (ROW_OVERHEAD + 4096) * max(1, len(package["releases"])))
+        now = store.now()
+        for release in package["releases"]:
+            ocid = _validate_ocid(release.get("ocid"))
+            release_id = _validate_ocid(release.get("id"))
+            payload = encode(release)
+            observation_id = digest([KIND, "world_monitor_live", ocid, release_id, payload])[:32]
+            row = {
+                "id": observation_id, "kind": KIND, "ocid": ocid, "release_id": release_id,
+                "source_url": url, "mode": "live",
+                "payload": payload, "payload_sha256": hashlib.sha256(payload.encode("utf-8")).hexdigest(),
+                "state": "pending", "created": now, "expires": store.portfolio()["deadline"],
+                "decided": None, "decision_actor": None, "decision_reason": None,
+            }
+            store.db.execute(
+                "INSERT OR IGNORE INTO world_pending_observations("
+                " id,kind,ocid,release_id,source_url,mode,payload,payload_sha256,state,created,expires,decided,decision_actor,decision_reason)"
+                " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (row["id"], row["kind"], row["ocid"], row["release_id"], row["source_url"], row["mode"],
+                 row["payload"], row["payload_sha256"], row["state"], row["created"], row["expires"],
+                 row["decided"], row["decision_actor"], row["decision_reason"]),
+            )
+            _record(store, observation_id, "ingest", {"mode": "live", "actor": actor, "ocid": ocid})
+            rows.append(row)
+        store.check()
+    return {"mode": "live", "ingested": len(rows), "pending": [r["id"] for r in rows]}
 
 
 def world_show(store, observation_id):

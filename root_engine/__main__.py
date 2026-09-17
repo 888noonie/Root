@@ -73,8 +73,12 @@ def main(argv=None):
     promote_notify.add_argument("--actor", default="operator")
     promote_notify.add_argument("--hermes-bin", required=True)
     promote_notify.add_argument("--timeout", type=float, default=15.0)
-    world_ingest = commands.add_parser("world-ingest", help="Hold a World Monitor observation batch pending (fixture gated; not authoritative)")
-    world_ingest.add_argument("--fixture", required=True)
+    world_ingest = commands.add_parser("world-ingest", help="Hold a World Monitor observation batch pending (fixture or live; not authoritative until world-allow)")
+    world_ingest_mode = world_ingest.add_mutually_exclusive_group(required=True)
+    world_ingest_mode.add_argument("--fixture")
+    world_ingest_mode.add_argument("--live", action="store_true")
+    world_ingest.add_argument("--published-from")
+    world_ingest.add_argument("--published-to")
     world_ingest.add_argument("--actor", default="operator")
     world_show = commands.add_parser("world-show")
     world_show.add_argument("--id", required=True)
@@ -139,9 +143,14 @@ def main(argv=None):
         elif args.command.startswith("world-"):
             from .worldmonitor import world_allow as world_allow_fn
             from .worldmonitor import world_deny as world_deny_fn
-            from .worldmonitor import world_ingest_fixture, world_show as world_show_fn
+            from .worldmonitor import world_ingest_fixture, world_ingest_live, world_show as world_show_fn
             if args.command == "world-ingest":
-                result = world_ingest_fixture(store, read_json(args.fixture), actor=args.actor)
+                if args.live:
+                    if not args.published_from or not args.published_to:
+                        raise RootError("Live world ingest requires both --published-from and --published-to")
+                    result = world_ingest_live(store, args.published_from, args.published_to, actor=args.actor)
+                else:
+                    result = world_ingest_fixture(store, read_json(args.fixture), actor=args.actor)
             elif args.command == "world-allow":
                 result = world_allow_fn(store, args.id, actor=args.actor)
             elif args.command == "world-deny":
