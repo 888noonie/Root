@@ -1,0 +1,22 @@
+{
+  "observations": [
+    {
+      "ocid": "world-0001",
+      "id": "world-0001-r1",
+      "source_url": "fixture://synthetic.world.evidence",
+      "kind": "signal",
+      "sector": "transport",
+      "value": 1000,
+      "note": "Synthetic bound bracket for the World Monitor gate; not a real market report."
+    },
+    {
+      "ocid": "world-0002",
+      "id": "world-0002-r1",
+      "source_url": "fixture://synthetic.world.evidence",
+      "kind": "signal",
+      "sector": "logistics",
+      "value": 250,
+      "note": "Synthetic bound bracket for the World Monitor gate; not a real market report."
+    }
+  ]
+}

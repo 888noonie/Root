@@ -73,6 +73,11 @@ def main(argv=None):
     promote_notify.add_argument("--actor", default="operator")
     promote_notify.add_argument("--hermes-bin", required=True)
     promote_notify.add_argument("--timeout", type=float, default=15.0)
+    world_ingest = commands.add_parser("world-ingest", help="Hold a World Monitor observation batch pending (fixture gated; not authoritative)")
+    world_ingest.add_argument("--fixture", required=True)
+    world_ingest.add_argument("--actor", default="operator")
+    world_show = commands.add_parser("world-show")
+    world_show.add_argument("--id", required=True)
     args = parser.parse_args(argv)
     store = None
     try:
@@ -124,6 +129,12 @@ def main(argv=None):
         elif args.command == "learn-show":
             from .knowledge import Learning
             result = Learning(store).row(args.id)
+        elif args.command.startswith("world-"):
+            from .worldmonitor import world_ingest_fixture, world_show as world_show_fn
+            if args.command == "world-ingest":
+                result = world_ingest_fixture(store, read_json(args.fixture), actor=args.actor)
+            else:
+                result = world_show_fn(store, args.id)
         elif args.command == "opportunity-add":
             result = {"opportunity_id": store.put_opportunity(read_json(args.file))}
         elif args.command == "collect":
