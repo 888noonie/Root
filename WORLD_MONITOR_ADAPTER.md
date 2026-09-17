@@ -18,7 +18,7 @@ inspected, but it changes nothing until an explicit operator action makes it aut
 ## Files
 
 - `root_engine/worldmonitor.py` — self-contained fixture gate (stdlib only).
-- `tests/test_worldmonitor.py` — 7 contract/adversarial tests.
+- `tests/test_worldmonitor.py` — 8 contract/adversarial tests.
 - `examples/world_monitor.synthetic.json` — synthetic offline batch (not real market data).
 - CLI: `world-ingest --fixture FILE [--actor LABEL]`, `world-show --id OBS_ID`.
 

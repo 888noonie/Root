@@ -73,6 +73,16 @@ python3 -m root_engine --db .root/self-improve.sqlite3 promote-allow --id <PROMO
 
 `learn-create --file REQUEST.json`, `learn-run --id REQUEST_ID --fixture FIXTURE.json`, and `learn-show --id REQUEST_ID` implement the one typed `unsupported_adapter_research_v1` lifecycle. The record has `authority="evidence_only"`: it cannot create a component, promotion, or collector behavior change. Live retrieval is intentionally refused for this first request kind; no network operation is implied by a learning request.
 
+**World Monitor gate (fixture):** untrusted observation evidence is held `pending` and never
+becomes authoritative. See `WORLD_MONITOR_ADAPTER.md` for the full contract and CLI:
+
+```sh
+python3 -m root_engine --db .root/world.sqlite3 world-ingest --fixture examples/world_monitor.synthetic.json --actor operator
+python3 -m root_engine --db .root/world.sqlite3 world-show --id <OBSERVATION_ID>
+```
+
+`world-show` strips artifact bytes; fixture batches have no allow path.
+
 Use `--fixture examples/github.synthetic.json` instead of `--live` for offline replay. It may pass behavioral evaluation but never creates a promotable artifact. An already-satisfied goal skips discovery and adoption. A stopped/interrupted goal does not silently restart or replenish allowances. A new goal requires a new explicit specification within the portfolio's remaining limits. `goal-run` exits 2 for a stopped goal and 1 for a failed evaluation.
 
 Goal request/body-byte/time/inference limits are independent of the portfolio limits. New specifications also declare zero spending, one concurrent job and a record-storage limit. Record storage counts UTF-8 payloads plus a conservative row overhead; the portfolio separately caps SQLite page allocation. New goals record hashes of development and holdout inputs at creation and refuse execution if they change. Earlier saved demonstration profiles retain their baseline case snapshots instead. Stop and audit records are preserved even after time runs out. `goal-rollback --id ...` remains available after deadlines expire and does not shorten any already-promised source cooldown.
@@ -142,7 +152,7 @@ labelled publisher flag, and the fields the notice does **not** publish.
 python3 -W error::ResourceWarning -m unittest discover -s tests -q
 ```
 
-Expected: `Ran 150 tests ... OK`, with no resource warnings. The suite is standard-library only.
+Expected: `Ran 158 tests ... OK`, with no resource warnings. The suite is standard-library only.
 
 ## Offline authority-boundary walkthrough
 

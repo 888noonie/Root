@@ -114,15 +114,15 @@ fixture-only evidence lifecycle;
 learning requests live in `learning_requests` and `knowledge_records` with
 `authority="evidence_only"` and never create components or promotions. Fixture mode
 is supported; live mode is deliberately refused (no network retrieval for this request kind).
-`scripts/offline_boundary_demo.sh` proves the fixture and learning authority boundaries against
-a new temporary database. 150 tests pass, zero skipped.
+`scripts/offline_boundary_demo.sh` proves the fixture and learning authority boundaries (and the
+World Monitor fixture gate) against a new temporary database. 158 tests pass, zero skipped.
 
 What this establishes: the engine can gate an adoption correctly. It does **not** establish that
 the adopted code was needed, valuable, or that any of it produces revenue.
 
 ## 4. What passing tests mean here
 
-150 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
+158 tests pass (`python3 -W error::ResourceWarning -m unittest discover -s tests`). They are
 regression evidence for the code path; they are **not** evidence of general safety, model
 reliability, or demand. No test in this suite observes an external customer.
 
