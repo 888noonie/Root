@@ -89,6 +89,7 @@ def main(argv=None):
     world_deny.add_argument("--id", required=True)
     world_deny.add_argument("--actor", required=True)
     world_deny.add_argument("--reason", required=True)
+    commands.add_parser("heartbeat-once", help="Run at most one deterministic due job in the current window; never a daemon")
     args = parser.parse_args(argv)
     store = None
     try:
@@ -140,6 +141,9 @@ def main(argv=None):
         elif args.command == "learn-show":
             from .knowledge import Learning
             result = Learning(store).row(args.id)
+        elif args.command == "heartbeat-once":
+            from .heartbeat import tick_once
+            result = tick_once(store)
         elif args.command.startswith("world-"):
             from .worldmonitor import world_allow as world_allow_fn
             from .worldmonitor import world_deny as world_deny_fn
