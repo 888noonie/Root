@@ -107,6 +107,13 @@ class WorldLiveIngestTests(unittest.TestCase):
         import hashlib
         self.assertEqual(hashlib.sha256(row["payload"].encode()).hexdigest(), row["payload_sha256"])
 
+    def test_closure_demo_script_exits_zero(self):
+        run = subprocess.run(
+            [sys.executable, str(PROJECT / "scripts/world_observation_closure_demo.py")],
+            capture_output=True, text=True, cwd=PROJECT)
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+        self.assertIn("CLOSURE VERIFIED", run.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

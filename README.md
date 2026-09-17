@@ -162,6 +162,17 @@ scripts/offline_boundary_demo.sh
 
 The script creates a fresh temporary database, runs the Retry-After fixture goal and an evidence-only fixture learning request, queries SQLite to assert zero components/promotions and one knowledge record, then proves a fixture leaves no promotion ID to allow (an attempted nonexistent ID is refused). It makes no network request, sends no Hermes message, and removes its temporary database on exit.
 
+## Observation-closure walkthrough
+
+```sh
+scripts/world_observation_closure_demo.sh
+```
+
+The closure driver replays a locally recorded OCDS package through the collector opener (no
+network), ingests it as a `mode=live` pending world row, proves nothing is authoritative until
+`world-allow`, allows one row into `observations` (which `screen`/`brief` then see), and asserts
+fixture rows remain permanently non-authoritative. See `WORLD_MONITOR_ADAPTER.md`.
+
 ## Architecture
 
 Collection → release resolution → deterministic screening → optional model advice → independent
