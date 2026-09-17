@@ -78,6 +78,13 @@ def main(argv=None):
     world_ingest.add_argument("--actor", default="operator")
     world_show = commands.add_parser("world-show")
     world_show.add_argument("--id", required=True)
+    world_allow = commands.add_parser("world-allow")
+    world_allow.add_argument("--id", required=True)
+    world_allow.add_argument("--actor", required=True)
+    world_deny = commands.add_parser("world-deny")
+    world_deny.add_argument("--id", required=True)
+    world_deny.add_argument("--actor", required=True)
+    world_deny.add_argument("--reason", required=True)
     args = parser.parse_args(argv)
     store = None
     try:
@@ -89,7 +96,7 @@ def main(argv=None):
                       objective=getattr(args, "objective", None),
                       policy=read_json(args.policy) if getattr(args, "policy", None) else None)
         if args.command.startswith("promote-"):
-            from .promotion import PromotionClosed, allow, deny, show as promote_show_fn
+            from .promotion import allow, deny, show as promote_show_fn
             if args.command == "promote-show":
                 result = promote_show_fn(store, args.id)
             elif args.command == "promote-allow":
@@ -130,9 +137,15 @@ def main(argv=None):
             from .knowledge import Learning
             result = Learning(store).row(args.id)
         elif args.command.startswith("world-"):
+            from .worldmonitor import world_allow as world_allow_fn
+            from .worldmonitor import world_deny as world_deny_fn
             from .worldmonitor import world_ingest_fixture, world_show as world_show_fn
             if args.command == "world-ingest":
                 result = world_ingest_fixture(store, read_json(args.fixture), actor=args.actor)
+            elif args.command == "world-allow":
+                result = world_allow_fn(store, args.id, actor=args.actor)
+            elif args.command == "world-deny":
+                result = world_deny_fn(store, args.id, actor=args.actor, reason=args.reason)
             else:
                 result = world_show_fn(store, args.id)
         elif args.command == "opportunity-add":

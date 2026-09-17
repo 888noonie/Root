@@ -18,6 +18,7 @@ Scope honesty: this is the GATE + SPEC for wiring World Monitor ingest; it is no
 World Monitor crawler. It ingests bounded fixture evidence and holds it pending by default.
 """
 
+import hashlib
 import json
 import re
 import urllib.parse
@@ -173,3 +174,100 @@ def world_expire(store, observation_id, *, actor="operator"):
             _record(store, observation_id, "expire", {"actor": actor})
             return world_show(store, observation_id)
         return {"id": observation_id, "state": row["state"], "changed": False}
+
+
+def world_deny(store, observation_id, *, actor, reason):
+    """Terminal deny of a pending world row. No observation is inserted."""
+    _ensure_gate_schema(store)
+    actor = _require_actor(actor)
+    reason = _require_reason(reason)
+    with store.transaction():
+        row = store.db.execute("SELECT state FROM world_pending_observations WHERE id=?", (observation_id,)).fetchone()
+        if not row:
+            raise RootError("Unknown pending world observation")
+        if row["state"] != "pending":
+            return {"id": observation_id, "state": row["state"], "changed": False}
+        now = store.now()
+        store.db.execute("UPDATE world_pending_observations SET state='denied', decided=?, decision_actor=?, decision_reason=? WHERE id=?",
+                         (now, actor, reason, observation_id))
+        _record(store, observation_id, "deny", {"actor": actor, "reason": reason})
+        # Re-project without raw payload bytes.
+        return _project(store, observation_id)
+
+
+def world_allow(store, observation_id, *, actor):
+    """Explicit operator allow: moves a *live* pending row into authoritative observations.
+
+    Mirrors `promote-allow` semantics:
+      - `mode=fixture` rows are permanently non-authoritative and are refused (fail closed).
+      - exact stored bytes + SHA are re-checked; a mismatch aborts with no insert.
+      - only `pending`, unexpired, `live` rows are eligible.
+      - the insert is a single transaction; a second allow is idempotent (no duplicate).
+    """
+    _ensure_gate_schema(store)
+    actor = _require_actor(actor)
+    with store.transaction():
+        row = store.db.execute(
+            "SELECT * FROM world_pending_observations WHERE id=?", (observation_id,)).fetchone()
+        if not row:
+            raise RootError("Unknown pending world observation")
+        if row["mode"] != "live":
+            raise RootError("Fixture world observations can never be allowed")
+        # Idempotent: a second allow of an already-allowed row returns its projection.
+        if row["state"] == "allowed":
+            return _project(store, observation_id)
+        if row["state"] != "pending":
+            raise RootError(f"World observation is {row['state']}; only pending can be allowed")
+        if store.now() >= row["expires"]:
+            raise RootError("World observation is expired; cannot be allowed")
+        payload = _blob(row["payload"])
+        if hashlib.sha256(payload).hexdigest() != row["payload_sha256"]:
+            raise RootError("World observation integrity failure; not allowed")
+        raw = json.loads(payload)
+        now = store.now()
+        package = {"version": "1.1", "uri": row["source_url"], "license": "world-gate",
+                   "releases": [raw], "links": {}}
+        # Reuse the store's authoritative package/observation digest mapping exactly, inline
+        # within this single transaction (save_package opens its own transaction, so we
+        # replicate its INSERT here rather than nest).
+        package_id = digest([row["source_url"], "live", package])
+        store.db.execute("INSERT OR IGNORE INTO packages VALUES(?,?,?,?,?)",
+                         (package_id, row["source_url"], "live", now, encode(package)))
+        for release in package["releases"]:
+            observation_row_id = digest(["live", release["ocid"], release["id"], release])
+            store.db.execute("INSERT OR IGNORE INTO observations VALUES(?,?,?,?,?,?)",
+                             (observation_row_id, package_id, release["ocid"], release["id"],
+                              release.get("date"), encode(release)))
+        store.db.execute(
+            "UPDATE world_pending_observations SET state='allowed', decided=?, decision_actor=?, decision_reason=? WHERE id=?",
+            (now, actor, "allowed", observation_id))
+        _record(store, observation_id, "allow", {"actor": actor, "package_id": package_id})
+        return _project(store, observation_id)
+
+
+def _require_actor(actor):
+    if not isinstance(actor, str) or not actor.strip() or len(actor.encode("utf-8")) > 120:
+        raise RootError("actor must be a nonempty label of at most 120 UTF-8 bytes")
+    return actor.strip()
+
+
+def _require_reason(reason):
+    if not isinstance(reason, str) or not reason.strip() or len(reason.encode("utf-8")) > 500:
+        raise RootError("reason must be a nonempty string of at most 500 UTF-8 bytes")
+    return reason.strip()
+
+
+def _blob(value):
+    if isinstance(value, memoryview):
+        return value.tobytes()
+    if isinstance(value, bytes):
+        return value
+    if isinstance(value, str):
+        return value.encode("utf-8")
+    return bytes(value)
+
+
+def _project(store, observation_id):
+    """A world_show projection without printing raw artifact bytes."""
+    value = world_show(store, observation_id)
+    return value

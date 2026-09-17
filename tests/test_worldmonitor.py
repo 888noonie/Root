@@ -46,13 +46,16 @@ class WorldMonitorGateTests(unittest.TestCase):
         self.assertEqual(shown["mode"], "fixture")
         self.assertNotIn("payload", shown)
 
-    def test_fixture_gate_has_no_allow_path(self):
-        from root_engine.worldmonitor import world_ingest_fixture
+    def test_fixture_gate_permanently_refuses_allow(self):
+        from root_engine.worldmonitor import world_allow, world_ingest_fixture
         result = world_ingest_fixture(self.store, self._batch(1), actor="operator")
-        # There is no fixture allow function; the gate exposes only ingest/show/expire.
-        import root_engine.worldmonitor as wm
-        self.assertFalse(hasattr(wm, "world_allow"))
+        # The gate exposes allow/deny for LIVE rows only; a fixture row is still permanently refused.
+        self.assertTrue(callable(world_allow))
         self.assertEqual(self.store.db.execute("SELECT state FROM world_pending_observations").fetchone()[0], "pending")
+        with self.assertRaises(RootError):
+            world_allow(self.store, result["pending"][0], actor="operator")
+        self.assertEqual(self.store.db.execute("SELECT count(*) FROM observations").fetchone()[0], 0)
+        self.assertEqual(self.store.db.execute("SELECT count(*) FROM packages").fetchone()[0], 0)
 
     def test_fixture_does_not_change_collector_or_promotion(self):
         from root_engine.worldmonitor import world_ingest_fixture
@@ -126,10 +129,12 @@ class WorldMonitorGateTests(unittest.TestCase):
         payload = json.loads(shown.stdout)
         self.assertEqual(payload["state"], "pending")
         self.assertNotIn("payload", payload)
-        # No world-allow command exists.
-        help_out = subprocess.run([sys.executable, "-m", "root_engine", "--help"],
-                                  capture_output=True, text=True, cwd=PROJECT)
-        self.assertNotIn("world-allow", help_out.stdout)
+        # world-allow now exists for live rows; a fixture row is refused via CLI (exit 2).
+        denied = subprocess.run(
+            [sys.executable, "-m", "root_engine", "--db", str(db), "world-allow", "--id", oid, "--actor", "operator"],
+            capture_output=True, text=True, cwd=PROJECT)
+        self.assertEqual(denied.returncode, 2, denied.stderr)
+        self.assertIn("fixture", denied.stderr.lower())
         # Authoritative tables are untouched.
         s2 = Store(db)
         self.assertEqual(s2.db.execute("SELECT count(*) FROM observations").fetchone()[0], 0)
