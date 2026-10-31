@@ -28,7 +28,7 @@ and is used only for the bounded advisory-model steps.
 September 2026 and all by a single author. The last commit is `53834df`
 (17 September 2026). There is no CI workflow.
 
-The first tranche is implemented and documented. External demand has not been
+Project records describe the first tranche as implemented. External demand has not been
 established: no operator has been contacted, no service is distributed or
 scheduled, and the prepared operator experiment has not been run. The repository
 contains engineering evidence and synthetic fixtures, not a validated product.
@@ -61,8 +61,8 @@ implemented and documented in the source tree, not behaviour observed here.
   evaluation cases.
 - **A standard-library `unittest` suite** is present under `tests/`.
 
-The most reproducible path is the offline fixture demo below: it makes no HTTP
-request, loads no model and does not touch live data. The repository's own
+The offline fixture demo below is the most reproducible path: it is documented as
+making no HTTP request, loading no model and not touching live data. The repository's own
 records describe live collection and a live component-adoption demonstration;
 those records are project claims, not results reproduced in this review.
 
@@ -101,9 +101,9 @@ those records are project claims, not results reproduced in this review.
 ## Install, run or inspect
 
 Requirements: Python 3.11 or newer. The project was developed and checked with
-Python 3.14 according to its README. No third-party Python packages are needed.
-For the optional model-advisory commands you also need an existing `llama.cpp`
-runtime and a local GGUF model; no weights ship with the repository.
+Python 3.14 according to the project's notes. No third-party Python packages are
+needed. For the optional model-advisory commands you also need an existing
+`llama.cpp` runtime and a local GGUF model; no weights ship with the repository.
 
 Clone or unpack the repository, then run from its root. The examples below write
 state under `.root/`, which is ignored by Git.
@@ -177,7 +177,7 @@ reproducible path.
 
 **Claimed by the project**
 
-- The README's "Verify" section says
+- The pre-review README's "Verify" section said
   `python3 -W error::ResourceWarning -m unittest discover -s tests -q` reports
   `Ran 189 tests ... OK`, with no resource warnings.
 - `PUBLICATION_AUDIT.md` (16 September 2026) records a final run of 91 tests,
@@ -221,7 +221,7 @@ above is the only way to confirm it on a given checkout.
 ## Licence
 
 **No licence is granted.** There is no `LICENSE` file in the repository, and the
-project's own README says the licence choice is unresolved. Reuse and
+project's documentation says the licence choice is unresolved. Reuse and
 redistribution terms are undecided; contact the copyright holder before reusing
 the code.
 
