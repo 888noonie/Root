@@ -1,261 +1,237 @@
-# ROOT
+# Root
 
-Bounded discovery substrate for the [advantage engine](ADVANTAGE_ENGINE.md). Includes milestone
-items 1–3 and the first capability-goal demonstration: objective-specific GitHub discovery,
-isolated evaluation, conditional adoption and rollback of a curated component. Standard-library
-Python 3.11+; no install or dependency download required. Developed and checked with Python 3.14.
+Root is a command-line research tool for public procurement notices. It collects
+notices into a local SQLite portfolio, resolves amendments, screens opportunities
+against declared constraints, records evidence, and evaluates candidate software
+components in isolation before adopting them.
 
-## The problem this addresses
+"Bounded" is the central design rule: every collection run, experiment, model
+call and promotion works inside declared request, byte, time, storage and
+spending limits. A model may propose; it cannot authorize adoption or change
+collector behaviour. Adoption is a separate, recorded step, and it can be
+rolled back.
 
-Public procurement data is open, but turning it into something an operator can act on is not
-free: notices are amended, deadlines move, cancellations happen, and the fields that determine
-whether a small operator can actually bid (insurance, DBS/safeguarding, lot structure, value)
-are frequently absent from the notice itself. ROOT's working hypothesis is that the scarce
-value is not collection volume but **accurate eligibility assessment, timely change detection
-and a trusted route to the operator**.
+The intended pipeline is:
 
-## Current status, stated plainly
-
-- **Built and verified:** bounded collection from one live public source (Contracts Finder OCDS),
-  release resolution to the latest applicable release, deterministic relevance scoring, a
-  deterministic keyword prefilter, a keyword-free independent component benchmark, conditional
-  adoption with rollback, and a source-verified tender preview.
-- **Measured:** model performance (3/4 on a pinned four-case advisory benchmark), prefilter
-  performance (exact confusion matrix, including one real false rejection), and source agreement
-  (6/6 notices matched the publisher at verification). See [METRICS.md](METRICS.md).
-- **Not established:** external demand. No operator has been contacted, nothing is distributed,
-  nothing is scheduled, and no revenue exists. An experiment is prepared for review and not run:
-  [EXPERIMENT_TENDER_PREVIEW.md](EXPERIMENT_TENDER_PREVIEW.md).
-- **Unresolved:** project licence (none chosen; see "Licence" below), model compatibility for any
-  candidate replacement model, and whether the tender offer is worth continuing.
-
-The four-case Gemma benchmark used **synthetic candidate packets**, zero-filled revision
-placeholders and synthetic parser sources. Its 3/4 result measures behavior on those packets;
-it does not verify Requests integration, real repository revisions or general research ability.
-The separate live urllib3 adoption demonstration has a different evidence basis.
-See [PUBLICATION_AUDIT.md](PUBLICATION_AUDIT.md) for the independent publication review.
-
-## Supported runtime
-
-Standard-library Python 3.11 or newer. No third-party Python packages, no compilation, no
-package installation. `llama.cpp` (build 10182 in this environment, CPU-only) is required **only**
-for the optional local-model advisory steps; collection, screening, fixture component evaluation and brief generation work without it. Research-role goals require an existing model/runtime. No model
-weights ship with this repository.
-
-## First demonstration: a self-improvement goal
-
-ROOT's first goal improves source collection by respecting Retry-After instructions longer than its original five-minute cooldown. It measures the baseline, searches GitHub (with one explicitly declared query fallback), inspects metadata/README/license at a pinned commit, evaluates a supported component against independent development and holdout cases, and enables it only on a live-sourced passing result. This first adapter targets `urllib3/urllib3`; selection and integration are curated, rather than arbitrary repository code generation. Stars are discovery metadata, not acceptance criteria.
-
-On the development machine only, the completed demonstration is retained in the excluded `.root/self-improve-live2.sqlite3`. The following inspection commands require that local database and do not work in a fresh clone:
-
-```sh
-python3 -m root_engine --db .root/self-improve-live2.sqlite3 goal-show --id respect-source-cooldowns
-python3 scripts/verify_saved_goal.py --db .root/self-improve-live2.sqlite3
+```text
+collect → resolve releases → screen → optional local-model advice
+        → independent evaluation → adoption or rejection → rollback
 ```
 
-The verifier checks that completed-goal replay makes no repeated effects, then exercises rollback on a temporary SQLite copy; the original adapter stays enabled. The adopted parser changes collector behavior only for its portfolio database. It retains the complete source file and MIT license in SQLite; only the restricted named function is executed, never the full fetched module. It uses standard-library dependencies with no package installation. Function syntax, names, calls and regex are constrained; candidate evaluation runs in a separate Python process with no inherited credentials and memory/CPU limits.
+Everything runs on the Python standard library (3.11 or newer). There is no
+package installation and no compilation. A local `llama.cpp` runtime is optional
+and is used only for the bounded advisory-model steps.
 
-For a separately budgeted new demonstration, the live pass now leaves the candidate **pending** rather than activating it immediately. An explicit operator command is required to promote:
+## Status
 
-```sh
-python3 -m root_engine --db .root/self-improve.sqlite3 init --objective 'Improve affordable, reliable public-source collection' --policy examples/self-improvement-policy.json
-python3 -m root_engine --db .root/self-improve.sqlite3 goal-create --file examples/self_improvement_goal.json
-python3 -m root_engine --db .root/self-improve.sqlite3 goal-run --id respect-source-cooldowns --live
-python3 -m root_engine --db .root/self-improve.sqlite3 goal-show --id respect-source-cooldowns
-# pending promotion row; no behavior change yet
-python3 -m root_engine --db .root/self-improve.sqlite3 promote-show --id <PROMOTION_ID>
-python3 -m root_engine --db .root/self-improve.sqlite3 promote-allow --id <PROMOTION_ID> --actor operator
-```
+**Dormant since 17 September 2026.** The repository has 15 commits, all from
+September 2026 and all by a single author. The last commit is `53834df`
+(17 September 2026). There is no CI workflow.
 
-`promote-allow` re-evaluates the exact stored artifact bytes, the pinned case manifests, provenance, licence, and trusted-code drift fingerprint before atomically switching the active component pointer. Fixture passes remain non-promotable and cannot be allowed. `promote-show` is read-only and JSON-safe. `promote-deny --id <PROMOTION_ID> --actor <label> --reason <text>` closes the request without activation. All three commands emit canonical JSON; a passing live evaluation alone never changes collector behavior. See [LIVE_PENDING_PROMOTION.md](LIVE_PENDING_PROMOTION.md) for the reproducible live `goal-run → pending → promote-allow → rollback-copy` walkthrough.
+The first tranche is implemented and documented. External demand has not been
+established: no operator has been contacted, no service is distributed or
+scheduled, and the prepared operator experiment has not been run. The repository
+contains engineering evidence and synthetic fixtures, not a validated product.
 
-`promote-notify --id <PROMOTION_ID> --to <Hermes target> --hermes-bin /absolute/path/to/hermes` is an optional, explicit delivery attempt for an already-pending live promotion. It accepts no hard-coded recipient, invokes `hermes send --to TARGET --json MESSAGE` without a shell, uses a fixed timeout, records a bounded attempt/result event, and cannot allow, deny, or otherwise change promotion authority. A missing CLI, timeout, nonzero exit, negative/malformed receipt, or uncertain delivery leaves the row pending. The executable must be an absolute regular path; no PATH-selected executable is trusted.
+## What demonstrably works
 
-`learn-create --file REQUEST.json`, `learn-run --id REQUEST_ID --fixture FIXTURE.json`, and `learn-show --id REQUEST_ID` implement the one typed `unsupported_adapter_research_v1` lifecycle. The record has `authority="evidence_only"`: it cannot create a component, promotion, or collector behavior change. Live retrieval is intentionally refused for this first request kind; no network operation is implied by a learning request.
+This review did not execute the code, so the following describes what is
+implemented and documented in the source tree, not behaviour observed here.
 
-**World Monitor gate (fixture):** untrusted observation evidence is held `pending` and never
-becomes authoritative. See `WORLD_MONITOR_ADAPTER.md` for the full contract and CLI:
+- **A complete CLI lifecycle** is present in `root_engine/`: `init`, `collect`,
+  `observations`, `screen`, `status`, `brief`, goal and experiment commands,
+  promotion commands, the learning-request lifecycle and the World Monitor gate.
+- **Collection** (`collector.py`) targets one verified HTTPS endpoint, follows
+  `links.next`, enforces request/byte/time budgets, persists a query checkpoint,
+  applies a cooldown on 403/429, and imports pages atomically. Source bodies are
+  stored as data, never executed.
+- **Release resolution** (`brief.py`) resolves notices sharing an `ocid` to the
+  latest applicable release, reports amendments and cancellations, and carries
+  forward fields omitted by a later release.
+- **Screening** (`screen.py`) separates the transparent opportunity check
+  (`reject`, `gather_evidence`, `eligible_for_review`) from a cheap keyword
+  prefilter that only decides what is worth model time.
+- **Independent evaluation and adoption** (`evaluate_component.py`,
+  `retry_component.py`, `goals.py`) run candidate behaviour in a separate Python
+  process with no inherited credentials and resource limits. Adoption and
+  rollback are recorded; completed-goal replay is intended to make no repeated
+  effects.
+- **Fixture-based demonstrations** exist under `examples/` and `scripts/`, and
+  the repository includes synthetic notices, policies, goal specifications and
+  evaluation cases.
+- **A standard-library `unittest` suite** is present under `tests/`.
 
-```sh
-python3 -m root_engine --db .root/world.sqlite3 world-ingest --fixture examples/world_monitor.synthetic.json --actor operator
-python3 -m root_engine --db .root/world.sqlite3 world-show --id <OBSERVATION_ID>
-```
+The most reproducible path is the offline fixture demo below: it makes no HTTP
+request, loads no model and does not touch live data. The repository's own
+records describe live collection and a live component-adoption demonstration;
+those records are project claims, not results reproduced in this review.
 
-`world-show` strips artifact bytes; fixture batches have no allow path.
+## Experimental, incomplete or planned
 
-Use `--fixture examples/github.synthetic.json` instead of `--live` for offline replay. It may pass behavioral evaluation but never creates a promotable artifact. An already-satisfied goal skips discovery and adoption. A stopped/interrupted goal does not silently restart or replenish allowances. A new goal requires a new explicit specification within the portfolio's remaining limits. `goal-run` exits 2 for a stopped goal and 1 for a failed evaluation.
+- **External demand is untested.** `EXPERIMENT_TENDER_PREVIEW.md` is a prepared
+  experiment, not a run one. No operator has been contacted.
+- **Milestone items 4–8 are unbuilt.** The later operating milestones — recurring
+  operation, measured intervention time, deployment and retirement — are not
+  implemented. The repository explicitly does not demonstrate a validated
+  research team or a recurring service.
+- **Optional model advice is not settled.** The Gemma four-case benchmark scored
+  3/4 on synthetic candidate packets with synthetic parser sources; that result
+  does not establish general research ability or real repository integration.
+  Another local model is reported to pass its classification controls on saved
+  runs, but model compatibility and capability remain runtime-dependent.
+- **The learning lifecycle is narrow.** One typed request kind
+  (`unsupported_adapter_research_v1`) is supported with
+  `authority="evidence_only"`, and live retrieval for it is deliberately refused.
+  It cannot create a component or a promotion.
+- **The World Monitor gate is fixture-only.** Untrusted observations remain
+  `pending` and never become authoritative in fixture mode.
+- **Promotion notification is optional and unproven end to end.** It invokes an
+  explicitly named external CLI without a shell, records bounded attempts, and
+  cannot allow or deny a promotion. Its tests use fake executables; no recipient
+  was contacted.
+- **The keyword prefilter has a known false rejection**: a retry-capable transport
+  wrapper that never uses the word "retry" is abstained on. The published matrices
+  are small curated synthetic sets, not real-world error estimates.
+- **The preview release resolver is deliberately limited.** It is not a general
+  schema-aware OCDS compiled-release implementation; later arrays replace earlier
+  arrays.
+- **This is not a scheduler or a security sandbox.** It is a local bounded research
+  tool, not protection against someone editing the Python source or SQLite file.
 
-Goal request/body-byte/time/inference limits are independent of the portfolio limits. New specifications also declare zero spending, one concurrent job and a record-storage limit. Record storage counts UTF-8 payloads plus a conservative row overhead; the portfolio separately caps SQLite page allocation. New goals record hashes of development and holdout inputs at creation and refuse execution if they change. Earlier saved demonstration profiles retain their baseline case snapshots instead. Stop and audit records are preserved even after time runs out. `goal-rollback --id ...` remains available after deadlines expire and does not shorten any already-promised source cooldown.
+## Install, run or inspect
 
-## Optional local models
+Requirements: Python 3.11 or newer. The project was developed and checked with
+Python 3.14 according to its README. No third-party Python packages are needed.
+For the optional model-advisory commands you also need an existing `llama.cpp`
+runtime and a local GGUF model; no weights ship with the repository.
 
-```sh
-python3 -m root_engine models
-```
+Clone or unpack the repository, then run from its root. The examples below write
+state under `.root/`, which is ignored by Git.
 
-The inventory reads bounded GGUF metadata without loading weights. On the development machine it found Qwen2.5 0.5B (397,808,192 bytes) and a Gemma4 GGUF (5,762,908,128 bytes: 5.76 GB / 5.37 GiB, size label 7.5B). The adapter uses the existing llama.cpp runtime, CPU only; no weights or runtime downloads are needed.
+Offline demonstration (synthetic fixture; no network, no model):
 
-`goal-run --local-review` reviews a relevant description and a synthetic negative control. By default it uses Qwen. To select another existing GGUF, bind it when creating a new goal:
-
-```sh
-python3 -m root_engine --db .root/trial.sqlite3 goal-create --file YOUR_GOAL.json --model /absolute/path/to/model.gguf
-```
-
-Creation retains the resolved model path, file size and bounded resource plan. Resource changes stop execution. Both controls are reserved atomically before discovery or model execution: the small plan requires 2,304 tokens total (1,024 context + 128 generation per call, 90-second call ceiling); the mid plan requires 4,480 (2,048 + 192 per call, 480-second ceiling). Both remain bounded by the goal deadline and portfolio allowances. The sample policy permits only the small plan; using the mid plan requires a separately declared goal and portfolio allowance. Failed calls retain reservations, and the adapter terminates the subprocess group. Model output cannot authorize adoption or change the evaluator.
-
-Qwen now passes both classification controls on saved live runs. The earlier failures contain grammar-sampler initialization errors; removing `--json-schema` from the tested command fixed those runs while retaining output validation. The saved database named `gemma_full` also identifies Qwen, so it does not validate Gemma through the goal runner. Hermes reported a separate direct Gemma trial; that remains distinct from the audited goal evidence. See [SELF_IMPROVEMENT_RESULT.md](SELF_IMPROVEMENT_RESULT.md). ROOT's component adoption is determined by the independent evaluator.
-
-## Run the offline demonstration
-
-From this directory:
-
-```sh
-python3 -m root_engine --db .root/demo.sqlite3 init --objective 'Find evidence-backed opportunities within zero-cash and owner-time constraints'
-python3 -m root_engine --db .root/demo.sqlite3 collect --fixture examples/contracts_finder.synthetic.json
-python3 -m root_engine --db .root/demo.sqlite3 opportunity-add --file examples/opportunity.json
+```bash
+python3 -m root_engine --db .root/demo.sqlite3 init \
+  --objective 'Find evidence-backed opportunities within the declared constraints'
+python3 -m root_engine --db .root/demo.sqlite3 collect \
+  --fixture examples/contracts_finder.synthetic.json
+python3 -m root_engine --db .root/demo.sqlite3 opportunity-add \
+  --file examples/opportunity.json
 python3 -m root_engine --db .root/demo.sqlite3 screen
 python3 -m root_engine --db .root/demo.sqlite3 observations
 python3 -m root_engine --db .root/demo.sqlite3 status
 ```
 
-The example correctly returns `gather_evidence`: its channel feasibility and owner-time budget are unresolved and it has no external evidence. The synthetic fixture represents no actual notices. Repeat the fixture import: zero new observations. Initialization refuses to overwrite an existing database.
+The fixture is synthetic and represents no real notices. Re-importing it should
+add zero new observations.
 
-## Fixture-only quickstart: the tender preview (no network, no weights)
+Tender-preview demonstration (also offline):
 
-Everything below runs offline from a synthetic fixture. No HTTP request is made and no model is
-loaded. The fixture is **not real** - do not act on the notices in it.
-
-```sh
-python3 -m root_engine --db .root/preview.sqlite3 init --objective 'Offline preview demonstration'
-python3 -m root_engine --db .root/preview.sqlite3 brief --fixture examples/tender_preview.synthetic.json --as-of 2026-09-16T10:00:00Z
-python3 -m root_engine --db .root/preview.sqlite3 brief --fixture examples/tender_preview.synthetic.json --as-of 2026-09-16T10:00:00Z --json
+```bash
+python3 -m root_engine --db .root/preview.sqlite3 init \
+  --objective 'Offline preview demonstration'
+python3 -m root_engine --db .root/preview.sqlite3 brief \
+  --fixture examples/tender_preview.synthetic.json \
+  --as-of 2026-09-16T10:00:00Z
 ```
 
-The fixture contains four observations covering three synthetic notices, deliberately including:
+The fixture deliberately includes an amended notice so the preview resolves the
+later deadline and lists a value omitted by the amendment instead of silently
+dropping it. It also includes two notices that should not appear as
+opportunities.
 
-1. an in-scope East Sussex County Council transport notice,
-2. a same-`ocid` **amendment** with a revised deadline and a distinct release id, which also
-   omits a contract value the first release stated,
-3. a right-buyer/wrong-category notice (wallpaper), and
-4. a right-category/other-buyer notice.
+Read-only live collection uses a separate portfolio and an explicit policy. The
+sample policy permits one request and a small response budget, with spending
+disabled:
 
-Expected behaviour, and what makes the demonstration meaningful: the preview resolves notice 1 to
-its **amendment** (the later deadline, not the stale one), reports the `tenderAmendment` tag, and
-lists the omitted `tender.value` under "Carried forward from an earlier release" rather than
-silently dropping it. Notices 3 and 4 do not appear as opportunities. Each rendered opportunity
-states its exact expiry with hours remaining, the facts stated in the notice, a separately
-labelled publisher flag, and the fields the notice does **not** publish.
-
-## Verify
-
-```sh
-python3 -W error::ResourceWarning -m unittest discover -s tests -q
+```bash
+python3 -m root_engine --db .root/live.sqlite3 init \
+  --objective 'Check source feasibility, not demand' \
+  --policy examples/live-smoke-policy.json
+python3 -m root_engine --db .root/live.sqlite3 collect --live \
+  --published-from 2026-09-14T00:00:00Z \
+  --published-to 2026-09-14T23:59:59Z --limit 1
 ```
 
-Expected: `Ran 189 tests ... OK`, with no resource warnings. The suite is standard-library only.
+Inspect the design and evidence in `ARCHITECTURE.md`, `ADVANTAGE_ENGINE.md`,
+`METRICS.md`, `SOURCE_VERIFICATION.md`, `PUBLICATION_AUDIT.md`,
+`SELF_IMPROVEMENT_EXPERIMENT.md`, `SELF_IMPROVEMENT_RESULT.md` and the JSON files
+under `evidence/`.
 
-## Offline authority-boundary walkthrough
+Saved databases referenced by some documentation (for example the live
+self-improvement portfolio) are machine-local, ignored by Git and absent from a
+fresh clone. Commands that read them will not work here; they are not part of the
+reproducible path.
 
-```sh
-scripts/offline_boundary_demo.sh
-```
+## Tests and build evidence
 
-The script creates a fresh temporary database, runs the Retry-After fixture goal and an evidence-only fixture learning request, queries SQLite to assert zero components/promotions and one knowledge record, then proves a fixture leaves no promotion ID to allow (an attempted nonexistent ID is refused). It makes no network request, sends no Hermes message, and removes its temporary database on exit.
+**Observed in this review**
 
-## Observation-closure walkthrough
+- A standard-library test suite is present: ten `test_*.py` modules under
+  `tests/`.
+- The package has no third-party dependency manifest; the code is standard-library
+  Python.
+- No CI configuration is present.
+- No test command, build, live collection or model call was executed for this
+  review.
 
-```sh
-scripts/world_observation_closure_demo.sh
-```
+**Claimed by the project**
 
-The closure driver replays a locally recorded OCDS package through the collector opener (no
-network), ingests it as a `mode=live` pending world row, proves nothing is authoritative until
-`world-allow`, allows one row into `observations` (which `screen`/`brief` then see), and asserts
-fixture rows remain permanently non-authoritative. See `WORLD_MONITOR_ADAPTER.md`.
+- The README's "Verify" section says
+  `python3 -W error::ResourceWarning -m unittest discover -s tests -q` reports
+  `Ran 189 tests ... OK`, with no resource warnings.
+- `PUBLICATION_AUDIT.md` (16 September 2026) records a final run of 91 tests,
+  while `BUILD_EXPERIMENT.md` records 23 checks for the first tranche. These are
+  project records from different snapshots, not a current count.
+- `SOURCE_VERIFICATION.md` records a successful one-request live fetch
+  (5,842 bytes, one observation imported) after an initially failed sandbox
+  attempt, plus a separate live GitHub component-adoption demonstration.
+- `METRICS.md` reports the synthetic 3/4 advisory-model result, an exact
+  prefilter confusion matrix, and adoption of `urllib3/urllib3`'s
+  `Retry.parse_retry_after` behind a restricted adapter.
 
-## Architecture
+Those claims were not re-run. The 189-test figure in particular should be
+treated as the project's statement, not an observed result. Running the command
+above is the only way to confirm it on a given checkout.
 
-Collection → release resolution → deterministic screening → optional model advice → independent
-evaluation → adoption → rollback, with every stage bounded by a declared policy.
+## Limitations and dependencies
 
-- **Collection** (`collector.py`): one verified HTTPS endpoint, pagination via `links.next`,
-  declared request/byte/time budgets, a persisted query checkpoint, and a cooldown on 403/429.
-  Source bodies are stored, never executed as instructions.
-- **Release resolution** (`brief.py: resolve_latest`): releases sharing an `ocid` are distinct
-  immutable records; the latest by release date (release id as deterministic tiebreak) is used,
-  so a revised deadline supersedes the old one and a cancellation is reported rather than hidden.
-  Nested object fields omitted by later releases are **carried forward and listed**; explicit
-  null deletions are respected. Arrays supplied later replace earlier arrays. This limited
-  preview resolver does not implement schema-aware OCDS identifier-array merging and must
-  not be treated as a general compiled-release implementation. The path for this was exercised against live data, where all three amended
-  releases were complete; the partial-release path is covered by fixture.
-- **Screening** (`screen.py`): two separate things. `screen()` is the transparent opportunity
-  eligibility check (missing fields, policy bounds, evidence resolution). `screen_packet()` is a
-  cheap **keyword prefilter** that decides only what is worth spending model time on - it is not
-  a capability test and its refusals are recorded as keyword-level abstentions.
-- **Model advice** (`local_models.py`, `research.py`): an optional bounded local LLM proposes or
-  refuses using only a collector-supplied candidate packet. A strict validator checks output shape and the repository URL and licence against the packet;
-  it cannot verify the truth of the free-text integration and benefit claims. The model cannot authorize anything.
-- **Independent evaluation** (`retry_component.py`, `evaluate_component.py`): a keyword-free
-  benchmark runs the candidate's actual parsed behaviour in a separate process with no inherited
-  credentials and memory/CPU limits. This, not the model, decides adoption.
-- **Adoption and rollback** (`goals.py`): adoption is a separate step, recorded with its evidence;
-  `goal-rollback` reverses it, and completed-goal replay makes no repeated effects
-  (`scripts/verify_saved_goal.py`).
+- **One data source.** Collection targets Contracts Finder's OCDS search
+  endpoint. The endpoint, its schema or its availability can change; a 403 or 429
+  produces a cooldown rather than a retry storm.
+- **Live access is deliberately tiny.** Budgets cap requests, response bytes and
+  wall time. Failed requests still consume allowance. Oversized or invalid bodies
+  do not leave partial observations.
+- **Local models are optional and bounded.** They require an existing
+  `llama.cpp` runtime and local GGUF weights. Model output is validated for shape
+  and provenance but cannot establish the truth of free-text claims, and cannot
+  authorize adoption.
+- **Evaluation is a curated boundary, not a general sandbox.** Candidate code
+  runs in a separate process with no inherited credentials and memory/CPU limits,
+  but this is not a security sandbox for arbitrary repository code.
+- **Storage and concurrency are local.** A single collector lease prevents
+  concurrent jobs; SQLite journals, temporary files and Python memory sit outside
+  the database storage cap.
+- **Single author, no CI, no external users.** There is no automated build matrix,
+  no published release process and no evidence of demand.
+- **The evidence export is a projection.** It retains notice identity, publisher,
+  deadline/status and classification, but omits parties, contacts, descriptions
+  and other free text. It cannot reproduce historical requirement extraction.
 
-## Licence and provenance
+## Licence
 
-**This project's own licence is an unresolved decision and has not been chosen here.** No
-`LICENSE` file is asserted by this repository; the choice belongs to the repository owner.
+**No licence is granted.** There is no `LICENSE` file in the repository, and the
+project's own README says the licence choice is unresolved. Reuse and
+redistribution terms are undecided; contact the copyright holder before reusing
+the code.
 
-Third-party components encountered, all used as *evaluated candidates* rather than vendored:
+Third-party material needs separate attention:
 
-| component | licence | how it is used |
-|---|---|---|
-| `urllib3/urllib3` (`Retry.parse_retry_after`) | MIT | adopted behind a restricted adapter; complete source and licence retained in the local SQLite portfolio |
-| `psf/requests` | Apache-2.0 | evaluated as a candidate only |
-| Contracts Finder OCDS data | OGL v3.0 | public open data, read-only, attributed in the evidence export |
-
-No fetched upstream modules are vendored into this repository; parser examples are synthetic fixtures. The synthetic fixtures are original
-and represent no real notices. The live evidence export
-(`evidence/tenders_live.export.json`) is an allowlisted projection of identity, buyer, deadline/status and classification fields.
-Contacts, parties and free-text descriptions are omitted; it is not a complete release and
-cannot reproduce extraction of the historical preview.
-
-## Read-only live collection
-
-Use a separate portfolio with a declared budget. The sample policy permits one HTTP request and at most 2 MiB of response body, no money and no model inference, for 30 minutes after initialization:
-
-```sh
-python3 -m root_engine --db .root/live.sqlite3 init --objective 'Check source feasibility, not customer demand' --policy examples/live-smoke-policy.json
-python3 -m root_engine --db .root/live.sqlite3 collect --live --published-from 2026-09-14T00:00:00Z --published-to 2026-09-14T23:59:59Z --limit 1
-python3 -m root_engine --db .root/live.sqlite3 observations
-```
-
-Pagination follows `links.next` on the exact verified HTTPS search endpoint. By default one page is fetched per invocation, at most three with `--max-pages 3` and sufficient portfolio allowance. The query checkpoint and page import commit together; a subsequent invocation with the same bounds and limit resumes, or does nothing after completion. Failed requests still consume request allowance. Invalid or oversized bodies do not leave partial observations. HTTP 403 persists a five-minute cooldown with no automatic retry; 429 also pauses for five minutes. Network redirects are disabled. Source data is retained, never executed as instructions.
-
-The immutable policy's request and body-byte limits apply cumulatively to a portfolio. Money stays disabled; local inference is possible only with a nonzero configured token allowance. The deadline is wall time from initialization, including idle time; status and observation inspection remain available afterward. SQLite writes reserve space conservatively and check database page allocation before committing. The storage cap covers the database, not project files, temporary SQLite journals or Python memory. Local JSON inputs are separately capped at 2 MiB. A response that exactly exhausts the byte allowance is conservatively discarded because confirming EOF would need another read.
-
-A single collector lease prevents concurrent jobs; an interrupted ordinary collection job's lease expires after 60 seconds. Capability goals retain the lease through their declared deadline plus 15 seconds. Ordinary network reads have a ten-second inactivity timeout; the collector checks its 30-second invocation limit between reads and pages. A blocking read can delay that check by its timeout. This is local bounded research, not a scheduler or a security sandbox against someone editing Python/SQLite.
-
-## Opportunity records and screening
-
-Use [examples/opportunity.json](examples/opportunity.json) as the schema example. Edit it and re-import with `opportunity-add --file ...`; the candidate revision changes and previous screen decisions remain recorded. The OCDS collector imports observations only. It does not assert that a notice is a profitable business.
-
-Copy IDs from `observations` into `evidence_refs`. Each claim is explicitly `hypothesis`, `estimate`, `unknown` or `observed`; an observed claim requires an `observation_id` referencing live data. A valid reference establishes provenance only; whether it actually supports the claim is a later research-review responsibility. Live procurement records cannot by themselves establish demand for a service about those records.
-
-Screening emits reasons and one of:
-
-- `reject`: declared costs, owner workload or experiment budgets exceed current bounds.
-- `gather_evidence`: missing information, unestablished channel feasibility, or absent external observations.
-- `eligible_for_review`: complete enough for research review, with external source provenance. It does not establish willingness to pay or authorize experiments, outreach or deployment.
-
-Distribution must name a channel and steps, declare `agent`, `hybrid` or `human` autonomy, describe owner steps when needed, and declare whether it fits the operating policy. Weekly owner workload must include distribution and support, with a capacity limit. All cost numbers remain the candidate's estimates until measured. The candidate's smallest test must name a real external deliverable and an external evidence method, plus criteria and resource limits; that test is not executed by this tranche.
-
-## Verify
-
-```sh
-python3 -m unittest discover -s tests -v
-```
-
-Automated tests use synthetic inputs and mock HTTP. The separately logged GitHub capability demonstration used live retrieval. Build budgets and outcomes are in [BUILD_EXPERIMENT.md](BUILD_EXPERIMENT.md) and [SELF_IMPROVEMENT_EXPERIMENT.md](SELF_IMPROVEMENT_EXPERIMENT.md); source provenance is in [SOURCE_VERIFICATION.md](SOURCE_VERIFICATION.md). The complete business traversal in milestone items 4–8 remains unbuilt. No validated research-model team, recurring business, public deployment or profit has been demonstrated.
+- Some evidence JSON appears to contain exported UK procurement notices whose
+  original licence — possibly the Open Government Licence v3.0 — has not been
+  independently confirmed. Confirm the applicable data licence and attribution
+  before redistributing those files.
+- The evaluated `urllib3` component is MIT-licensed. It was adopted behind a
+  restricted adapter and retained in a local, excluded database; it is not
+  vendored into this repository.
+- The parser fixtures are synthetic and represent no real notices.
